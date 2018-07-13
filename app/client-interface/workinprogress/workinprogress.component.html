@@ -1,0 +1,36 @@
+<div class="panel">
+    <div class='panel-primary'>
+        <h2 class="panel-heading">{{Title}}</h2>
+    </div>
+    <app-loadingbar [isLoaded]="isLoaded"></app-loadingbar>
+    <div class="ui-widget-header panel-primary" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Search">
+    </div>
+   <p-dataTable [immutable]=false [value]="vddlItems" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+        <p-column field="VddlDetails.CaseRefNo" header="Case Ref Number"></p-column>
+        <p-column field="VddlDetails.Status" header="Case Status"></p-column>
+        <p-column field="VddlDetails.CustomsExciseCode" header="Customs Excise Code:"></p-column>
+        <p-column field="VddlDetails.CompanyRegisteredNumber" header="Company Registered number:"></p-column>
+        <p-column field="VddlDetails.TradingName" header="Trading Name:"></p-column>
+        <p-column field="VddlDetails.IncomeTax" header="Income Tax:"></p-column>
+        <p-column field="VddlDetails.VATNumber" header="VAT Number:"></p-column>
+        <p-column field="VddlDetails.DateCreated" header="DateCreated:">
+            <ng-template let-col let-vddlItems="rowData " pTemplate="type">
+                <div>{{vddlItems.VddlDetails.DateCreated | date}}</div>
+            </ng-template>
+        </p-column>
+        <p-column *ngIf='!pended' styleClass="col-button">
+
+            <ng-template let-vddlDetail="rowData" pTemplate="body">
+                <button type="button" pButton (click)="onVddlEdit(vddlDetail)" class='btn btn-primary'>Edit</button>
+            </ng-template>
+        </p-column>
+        <p-column *ngIf='pended' styleClass="col-button">
+
+            <ng-template let-vddlDetail="rowData" pTemplate="body">
+                <button type="button" pButton (click)="onVddlView(vddlDetail)" class='btn btn-primary'>View</button>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+</div>

@@ -1,0 +1,84 @@
+<div class="panel">
+    <div class='panel-primary'>
+        <h2 class="panel-heading">CI Allocation/ Re Allocation Inventory</h2>
+    </div>
+    <div class='row' *ngIf="viewAllocateButton == true">
+        <label class='control-label col-md-2'>Get Next To Allocate:</label>
+        <div class='col-md-4'>
+            <button tooltip="Allocate First" [disabled]="gridItems.length > 0" class='btn btn-primary' (click)="getNextCaseToAllocate()">Get Next</button>
+        </div>
+    </div>
+    <br/>
+    <div class="row" *ngIf="viewAllocateButton == true">
+        <label class="control-label col-sm-2">Get Next To Allocate By Region:</label>
+        <div class="col-sm-2">
+            <select class="form-control" #region name="region" (change)="getValue(region.value)" [disabled]="gridItems.length > 0">
+                <option></option>
+                <option *ngFor="let regionItem of regionItems" [value]="regionItem.RegionId">{{regionItem.RegionName}}</option>
+            </select>
+        </div>
+        <div class='col-md-1'>
+            <button class='btn btn-primary' (click)="getCaseByRegion()" [disabled]="region.value == ''">Get Next</button>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <label class="control-label col-sm-2">Search by Case or Custom Code:</label>
+        <div class="col-sm-2">
+            <input *ngIf="viewAllocateButton == true" class="form-control" #track type="text" [disabled]="gridItems.length > 0" (blur)="getTextValue(track.value)"
+            />
+            <input *ngIf="viewAllocateButton != true" class="form-control" #track type="text" (blur)="getTextValue(track.value)" />
+        </div>
+        <div class='col-md-1'>
+            <button *ngIf="viewAllocateButton == true" class='btn btn-primary' [disabled]="gridItems.length > 0" (click)="onTrackButtonClick()">Track Assign</button>
+            <button *ngIf="viewAllocateButton != true" class='btn btn-primary' (click)="onTrackButtonClick()">Track Assign</button>
+
+        </div>
+    </div>
+    <br/>
+
+    <!-- <div class="ui-widget-header panel-primary" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Search">
+    </div> -->
+   <p-dataTable [immutable]=false [value]="gridItems" [rows]="10" [paginator]="true">
+        <p-column field="VddlDetails.CaseRefNo" header="Case Ref Number"></p-column>
+        <p-column field="VddlDetails.Status" header="Case Status"></p-column>
+        <p-column field="VddlDetails.CustomsExciseCode" header="Customs Excise Code:"></p-column>
+        <p-column field="VddlDetails.CompanyRegisteredNumber" header="Company Registered Number:"></p-column>
+        <p-column field="VddlDetails.IncomeTax" header="Income Tax:"></p-column>
+        <p-column field="VddlDetails.VATNumber" header="VAT Number:"></p-column>
+        <p-column field="VddlDetails.DateCreated" header="DateCreated:"></p-column>
+        <p-column styleClass="col-button">
+
+            <ng-template let-gridItem="rowData" pTemplate="body">
+                <button class='btn btn-primary' (click)="allocaTeReallocateButton(gridItem)">Re/Allocate</button>
+            </ng-template>
+        </p-column>
+        <p-column styleClass="col-button">
+            <ng-template let-gridItem="rowData" pTemplate="body">
+                <button class='btn btn-primary' (click)="onVddlView(gridItem)">View Details</button>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+    <br/>
+    <div class="row" *ngIf="showAllocateReAllocate == true">
+        <div class="form-group col-sm-12">
+            <label class="control-label col-sm-2">Select Team Member:</label>
+            <div class="col-sm-2">
+                <select class="form-control" #teamMemebr (change)="getTeamMemberValue(teamMemebr.value)">
+                    <option></option>
+                    <option *ngFor="let usersItem of usersItems" [value]="usersItem.SID">{{usersItem.FirstName + usersItem.LastName}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <button *ngIf="whichRoleActive=='Allocate'" class='btn btn-primary' (click)="allocateReallocate()" [disabled]="teamMemebr.value == ''">Allocate</button>
+            <button *ngIf="whichRoleActive!='Allocate'" class='btn btn-primary' (click)="allocateReallocate()" [disabled]="teamMemebr.selected"
+                [disabled]="teamMemebr.value == ''">Re-Allocate</button>
+        </div>
+
+    </div>
+
+
+</div>

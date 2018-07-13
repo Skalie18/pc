@@ -1,0 +1,61 @@
+<div class="panel">
+    <div>
+        <h3>Notes</h3>
+        <p>Number Of Notes: {{commentItems.length }}</p>
+
+        <!-- <div class="table-responsive col-md-12  col-lg-12 col-sm-12">
+            <div class="table">
+                <div class="listBorderTop">
+                    <div class="row" style="margin-top: 5px;">
+                        <div class="col-lg-5 col-md-5 col-sm-5">
+                            <label class="boldtext">Name</label>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <label class="boldtext">Date</label>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                            <label class="boldtext">User</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="listBorderBottom">
+                    <div *ngFor="let noteItem of commentItems; let i = index" class="row tableoutline" (click)="noteClicked(noteItem)">
+                        <div class="col-lg-5 col-md-5 col-sm-5">
+                            <div class="tablebox">
+                                <strong>{{noteItem.Reason| slice:0:20}}{{noteItem.Reason.length > 20 ? ' (...)' : ''}}</strong>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <div class="tablebox">
+                                {{noteItem.DateCreated | date : "dd MMMM yyyy" }}
+                            </div>
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1">
+                            <div class="tablebox">
+                                {{noteItem.CreatedBy }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="col-md-12  col-lg-12 col-sm-12">
+           <p-dataTable [immutable]=false [value]="commentItems" [rows]="10" [paginator]="true" selectionMode="single" (onRowSelect)="onCommentsRowSelect($event)" [globalFilter]="gb" #dt>
+            
+                <p-column field="Reason" header="Notes">
+                    <ng-template let-col let-commentItems="rowData " pTemplate= "type">
+                        <span>{{commentItems.Reason| slice:0:20}}{{commentItems.Reason.length > 20 ? ' (...)' : ''}}</span>
+                    </ng-template>
+            
+                </p-column>
+                <p-column field="DateCreated" header="Date Created">
+                    <ng-template let-col let-commentItems="rowData " pTemplate= "type">
+                        <div>{{commentItems.DateCreated | date : "dd MMMM yyyy" }}</div>
+                    </ng-template>
+                </p-column>
+                <p-column field="CreatedBy" header="User">
+                </p-column>
+            </p-dataTable>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+<!-- <div class="ui-grid ui-grid-responsive ui-fluid"> -->
+    <div class="row">
+      <form #adminForm="ngForm">
+        <div class="form-group col-sm-12">
+          <label class="control-label col-sm-1">First Name</label>
+          <div class="col-sm-8">
+            <input class="form-control" type="text" sars-limitfield="20" [(ngModel)]="_user.userAdmin.FirstName" name="FirstName" #firstName="ngModel"
+              required />
+
+            <div [hidden]="firstName.valid || firstName.pristine" class="alert alert-danger">
+              Please Enter First Name
+            </div>          
+          </div>
+        </div>
+        <div class="form-group col-sm-12">
+          <label class="control-label col-sm-1">LastName:</label>
+          <div class="col-sm-8">
+            <input class="form-control" type="text" sars-limitfield="20" [(ngModel)]="_user.userAdmin.LastName" name="LastName" #lastName="ngModel"
+              required />
+
+            <div [hidden]="lastName.valid || lastName.pristine" class="alert alert-danger">
+              Please Enter Last Name
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-sm-12">
+          <label class="control-label col-sm-1">SID:</label>
+          <div class="col-sm-8">
+            <input class="form-control" type="text" sars-limitfield="20" [(ngModel)]="_user.userAdmin.SID" name="SID" #sID="ngModel" required />
+
+            <div [hidden]="sID.valid || sID.pristine" class="alert alert-danger">
+              Please Enter SID
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group col-sm-12">
+          <label class="control-label col-sm-1">Email Address:</label>
+          <div class="col-sm-8">
+            <input class="form-control" type="text" sars-limitfield="100" [(ngModel)]="_user.userAdmin.EmailAddress" name="EmailAddress" #emailAddress="ngModel"
+              required />
+
+            <div [hidden]="emailAddress.valid || emailAddress.pristine" class="alert alert-danger">
+              Please Enter Email Address
+            </div>
+          </div>
+        </div>
+        <div class="form-group col-sm-12">
+          <label class="control-label col-sm-1">Region:</label>
+          <div class="col-sm-4">
+            <select class="form-control" required placeholder="Please make a select" [(ngModel)]="_user.userAdmin.RegionId" name="RegionId" 
+              (change)="changeRegion()" #regionId="ngModel">
+              <option></option>
+              <option *ngFor="let regionItem of _user.regionItems" [value]="regionItem.RegionId">{{regionItem.RegionName}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group col-sm-12">
+          <label class="control-label col-sm-1">Role:</label>
+          <div class="col-sm-4">
+            <select class="form-control" required placeholder="Please make a select" [(ngModel)]="_user.userAdmin.Role" name="Role" #role="ngModel"  (change)="changeRegion()">
+              <option></option>
+              <option *ngFor="let userRoleItem of _user.userRoleItems" [value]="userRoleItem.RoleName">{{userRoleItem.RoleName}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group col-sm-12">
+          <label class="control-label col-sm-1">ManagerSID:</label>
+          <div class="col-sm-8">
+              <select class="form-control" placeholder="Please make a select" [(ngModel)]="_user.userAdmin.ManagerSID" name="ManagerSID" #managerSID="ngModel">
+                <option></option>
+                <option *ngFor="let users of _user.filteredAdminItems" [value]="users.SID">{{users.SID + " - " + users.FirstName + " " + users.LastName}}</option>
+              </select>
+            <div [hidden]="managerSID.valid || managerSID.pristine" class="alert alert-danger">
+              Please Enter ManagerSID
+            </div>            
+          </div>
+        </div>
+       
+      </form>
+    </div>
+
+  <!-- </div> -->

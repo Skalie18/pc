@@ -1,0 +1,929 @@
+<div class="panel">
+    <div class=" panel-primary">
+        <h2 class="panel-heading">{{viewTitle}}</h2>
+    </div>
+    <app-loadingbar [isPostActionCompleted]="isPostActionCompleted" [isLoaded]="isLoaded"> </app-loadingbar>
+    <div class="col-md-8 col-lg-8 col-sm-8">
+        <form novalidate #sarform="ngForm">
+            <div class="panelcontainer" style="margin-top:30px;">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                            Case Details
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+
+                                        <fieldset [disabled]=allFieldsReadOnly>
+                                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-md-4  col-lg-4 col-sm-4">Case Status:</label>
+                                                <div class="col-md-5  col-lg-5 col-sm-5">
+                                                    <label class="form-control"> {{sarData.SuspiciousActivityReportDetails.CaseDetails.Status == null
+                                                        ? 'New':sarData.SuspiciousActivityReportDetails.CaseDetails.Status}}
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-md-4  col-lg-4 col-sm-4">Reference Number:</label>
+                                                <div class="col-md-4  col-lg-4 col-sm-4">
+                                                    <input [disabled]=allFieldsReadOnly disabled class="form-control" id="refNo" type="text" [(ngModel)]="sarData.SuspiciousActivityReportDetails.CaseDetails.ReferenceNumber"
+                                                        name="ReferenceNumber" #referenceNumber="ngModel" />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-md-4  col-lg-4 col-sm-4">Client Type :</label>
+                                                <div class="col-md-4 col-lg-4 col-sm-4">
+                                                    <select class="form-control" required [(ngModel)]="sarData.SuspiciousActivityReportDetails.CaseDetails.ClientTypeId" name="ClientTypeId" #clientTypeId="ngModel">
+                                                        <option *ngFor="let traveller of travellerList" [disabled]=defaultLookupOption(traveller) [value]="traveller.ClientTypeId">{{traveller.Description}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-12  col-lg-12 col-sm-12" *ngIf="clientTypeId.value =='f15905b2-f06e-4f03-9540-69c13e2db4cc'">
+                                                <label class="control-label col-md-4  col-lg-4 col-sm-4">Number of travellers/Individuals:</label>
+                                                <div class="col-md-4  col-lg-4 col-sm-4">
+                                                    <input [disabled]=allFieldsReadOnly class="form-control"  pKeyFilter="int" sars-limitfield="3" sars-numericfield required id="noTravellerIndividual"
+                                                        type="number" [(ngModel)]="sarData.SuspiciousActivityReportDetails.CaseDetails.NumTravellersIndividuals"
+                                                        sars-zeronotallowed   name="NumTravellersIndividuals" #numTravellersIndividuals="ngModel" (change)="getValue(numTravellersIndividuals.value)"
+                                                    />
+                                                    <div [hidden]="numTravellersIndividuals.valid || numTravellersIndividuals.pristine" class="alert alert-danger">
+                                                        <div [hidden]="!numTravellersIndividuals.hasError('required')">Please Enter Number of travellers/Individuals</div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group col-md-12  col-lg-12 col-sm-12" *ngIf="clientTypeId.value =='d9b76583-3ae7-433f-a63a-44483c3f0cf2'">
+                                                <label class="control-label col-md-4  col-lg-4 col-sm-4">Number of Companies/trader/ importer/exporters:</label>
+                                                <div class="col-md-4  col-lg-4 col-sm-4">
+                                                    <input [disabled]=allFieldsReadOnly class="form-control" sars-limitfield="3" required id="companTtraderImporterExporters"
+                                                        type="number" [(ngModel)]="sarData.SuspiciousActivityReportDetails.CaseDetails.NumEntityTypes"
+                                                        sars-zeronotallowed   name="NumEntityTypes" #numEntityTypes="ngModel" sars-numericfield (change)="getNoCompaniesValue(numEntityTypes.value)"
+                                                    />
+                                                    <div [hidden]="numEntityTypes.valid || numEntityTypes.pristine" class="alert alert-danger">
+                                                        <div [hidden]="!numEntityTypes.hasError('required')">Please Enter Number of Companies/trader/ importer/exporters</div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-md-4  col-lg-4 col-sm-4">Customs/Excise:</label>
+                                                <div class="col-sm-3">
+                                                    <select class="form-control" required placeholder="Please make a select" [(ngModel)]="sarData.SuspiciousActivityReportDetails.CaseDetails.CustomsExciseId"
+                                                        name="CustomsExciseId" #customsExciseId="ngModel">
+
+                                                        <option *ngFor="let customsExciseList of customsExciseLists" [disabled]=defaultLookupOption(customsExciseList) [value]="customsExciseList.CustomsExciseId">{{customsExciseList.Description}}</option>
+                                                       
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+                                            aria-controls="collapseTwo">
+                                            SARS Ref Details
+                                        </a>
+                                    </h4>
+                                </div>
+                                <p-dialog header="Sars Ref Details" [(visible)]="displayDialog" [responsive]="false" [width]="650" showEffect="fade" [modal]="true">
+                                    <form novalidate #refDetails="ngForm" class="row">
+                                        <div class="form-group col-md-12  col-lg-12  col-sm-12">
+                                            <label class="control-label col-md-3  col-lg-3 col-sm-3">Customs/Excise code:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control" sars-limitfield="8" sars-numericfield sars-customexcise id="customscode"
+                                                    type="text" [ngModel]="refDetailsData.CustomsExciseCode" name="CustomsExciseCode"
+                                                    #customsExciseCode="ngModel" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12  col-sm-12">
+                                            <label class="control-label col-md-3  col-lg-3 col-sm-3">Company Number:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control" sars-companyreg sars-limitfield="14" id="companyNo" type="text"
+                                                    ngControl="companyNumber" [ngModel]="refDetailsData.CompanyNumber" sars-sepcialcharacter name="CompanyNumber"
+                                                    #companyNumber="ngModel" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12  col-sm-12">
+                                            <label class="control-label col-md-3  col-lg-3 col-sm-3">Income tax:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control" sars-numericfield sars-limitfield="10" id="incometax" ngControl="incomeTax"
+                                                    type="text" [ngModel]="refDetailsData.IncomeTax" name="IncomeTax" #incomeTax="ngModel"
+                                                    sars-taxincome />
+                                                <div [hidden]="incomeTax.valid || incomeTax.pristine" class="alert alert-danger">
+
+                                                    <div [hidden]="!incomeTax.hasError('required')">Please Enter Income Tax</div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12 col-lg-12 col-sm-12">
+                                            <label class="control-label col-md-3  col-lg-3 col-sm-3">Vat:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control" sars-numericfield sars-limitfield="10" id="vat" type="text" [ngModel]="refDetailsData.VAT"
+                                                    name="VAT" #vAT="ngModel" sars-vatnumber />
+                                            </div>
+                                            <div [hidden]="vAT.valid || vAT.pristine" class="alert alert-danger">
+                                                <div [hidden]="!vAT.hasError('required')">Please Enter Vat Number</div>
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <p-footer>
+                                        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+
+                                            <button pButton type="button" icon="far fa-save" [disabled]="disableRefSaveButton" label="Save Ref Details" (click)="addRefDetails(refDetails)"></button>
+                                            <button pButton type="button" icon="fas fa-edit" [disabled]="disableRefButton" label="Done Edit" (click)="onDoneEditDetails(refDetailsData,refDetails)"></button>
+                                        </div>
+                                    </p-footer>
+                                </p-dialog>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body divScroll">
+                                        <div class="col-sm-12">
+                                            <p-toolbar>
+                                                <div class="ui-toolbar-group-left">
+                                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                                    <input [disabled]="items.length == 0" #gb type="text" pInputText size="50" placeholder="filter">
+                                                </div>
+
+                                                <div class="ui-toolbar-group-right">
+
+                                                    <button [disabled]=allFieldsReadOnly pButton type="button" icon="fas fa-plus" label="Add Ref Details" (click)="showRefDetails()"></button>
+
+                                                </div>
+                                            </p-toolbar>
+                                            <p-dataTable loadinf [immutable]=false [value]="items" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+
+                                                <p-column field="CustomsExciseCode" header="Customs/Excise code"></p-column>
+                                                <p-column field="CompanyNumber" header="Company Registered Number"></p-column>
+                                                <p-column field="IncomeTax" header="Income Tax"></p-column>
+                                                <p-column field="VAT" header="VAT Number"></p-column>
+                                                <p-column styleClass="col-button">
+                                                    <ng-template let-item="rowData" pTemplate="body">
+                                                        <button type="button" pButton class='btn btn-primary btn-xs' label="Edit" (click)='onRefDetailsEdit(item, refDetails, i)'></button>
+                                                    </ng-template>
+                                                </p-column>
+                                                <p-column styleClass="col-button">
+                                                    <ng-template let-item="rowData" pTemplate="body">
+                                                        <button [disabled]=allFieldsReadOnly type="button" pButton class='btn  btn-danger btn-xs' label="Delete" (click)='onRefDetailsRemove(item)'></button>
+                                                    </ng-template>
+                                                </p-column>
+
+                                            </p-dataTable>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" *ngIf="clientTypeId.value == CompanyTraderImporterExporter">
+                                <div class="panel-heading" role="tab" id="headingFour">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false"
+                                            aria-controls="collapseFour">
+                                            Entity Type Details
+                                        </a>
+                                    </h4>
+                                </div>
+
+                                <p-dialog header="Entity Type Details" [(visible)]="entityDisplayDialog" [responsive]="false" [width]="650" showEffect="fade"
+                                    [modal]="true">
+
+                                    <form novalidate #entityDetails="ngForm">
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Registered Name:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control"  sars-limitfield="100" id="regName" type="text"
+                                                    [ngModel]="entityDetailsData.RegistrationName" name="RegistrationName" sars-sepcialcharacter #registrationName="ngModel"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Trading Name:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control"  sars-limitfield="100" id="tradingname" type="text"
+                                                    [ngModel]="entityDetailsData.TradingName" name="TradingName" #tradingName="ngModel" sars-sepcialcharacter
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Company Number:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control"  sars-companyreg sars-limitfield="14" id="comNumber"
+                                                    type="text" [ngModel]="entityDetailsData.CompanyNumber" name="CompanyNumber"
+                                                    #companyNumber="ngModel"  sars-sepcialcharacter/>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <p-footer>
+                                        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                            <button pButton type="button" icon="far fa-save" [disabled]="disableEntSaveButton" label="Save Entity Details" (click)="addEntityDetails(entityDetails)"></button>
+                                            <button pButton type="button" icon="fas fa-edit" [disabled]="disableEntButton" label="Done Edit" (click)="doneEntityDetailsEdit(entityDetailsData,entityDetails)"></button>
+                                        </div>
+                                    </p-footer>
+                                </p-dialog>
+
+                                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                    <div class="panel-body divScroll">
+                                        <div class="form-group col-sm-12">
+                                            <p-toolbar>
+                                                <div class="ui-toolbar-group-left" >
+                                                    <i class="fa fa-search" style="margin:4px 4p 0 0"></i>
+                                                    <input [disabled]="entItems.length == 0" #gbent type="text" pInputText size="50" placeholder="filter">
+                                                </div>
+
+                                                <div class="ui-toolbar-group-right">
+
+                                                    <button [disabled]=allFieldsReadOnly pButton type="button" icon="fas fa-plus" label="Add Entity Details" (click)="showEntityDetails()"></button>
+
+                                                </div>
+                                            </p-toolbar>
+                                            <p-dataTable [immutable]=false [value]="entItems" [rows]="10" [paginator]="true" [globalFilter]="gbent" #dtent>
+
+                                                <p-column field="RegistrationName" header="Registered Name" width="auto"></p-column>
+                                                <p-column field="TradingName" header="Trading Name"></p-column>
+                                                <p-column field="CompanyNumber" header="Company Number"></p-column>
+                                                <p-column styleClass="col-button">
+                                                    <ng-template let-entItem="rowData" pTemplate="body">
+                                                        <button type="button" pButton class='btn btn-primary btn-xs' label="Edit" (click)='entityDetailsEdit(entItem, entityDetails ,i)'></button>
+                                                    </ng-template>
+                                                </p-column>
+                                                <p-column styleClass="col-button">
+                                                    <ng-template let-entItem="rowData" pTemplate="body">
+                                                        <button [disabled]=allFieldsReadOnly type="button" pButton class='btn  btn-danger btn-xs' label="Delete" (click)='entityTypeDetailsRemove(entItem)'></button>
+                                                    </ng-template>
+                                                </p-column>
+
+                                            </p-dataTable>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" *ngIf="clientTypeId.value ==TravellerIndividual">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false"
+                                            aria-controls="collapseThree">
+                                            Reported Person Details
+                                        </a>
+                                    </h4>
+                                </div>
+                                <p-dialog header="Reported Person Details" [(visible)]="reportedPersonDisplayDialog" [responsive]="false" [width]="650" showEffect="fade"
+                                    [modal]="true">
+                                    <form novalidate #reportedPerson="ngForm" class="row">
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Surname:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control"  pKeyFilter="alpha"  sars-limitfield="50" id="surname" type="text"
+                                                    [ngModel]="reportedPersonData.Surname" name="Surname" #surname="ngModel" sars-sepcialcharacter
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Initials:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control"  pKeyFilter="alpha"  sars-limitfield="3" id="initials" type="text"
+                                                    [ngModel]="reportedPersonData.Initials" name="Initials" #initials="ngModel" sars-sepcialcharacter
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">First Two Names:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control" [pKeyFilter]="alphawithspace"  sars-limitfield="100" id="firsttwonames" type="text"
+                                                    [ngModel]="reportedPersonData.FirstNames" name="FirstNames" #firstNames="ngModel" sars-sepcialcharacter
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Date of Birth:</label>
+                                            <!-- inputStyleClass="form-control"-->
+                                            <div class="col-sm-8">
+                                                <p-calendar  [(ngModel)]="reportedPersonData.DateOfBirth" readonlyInput="true" dateFormat="yy-mm-dd" [showIcon]="true" yearNavigator="true" yearRange="1900:2030"
+                                                    #dateOfBirth name="DateOfBirth" #dateOfBirth="ngModel" monthNavigator="true"
+                                                    showButtonBar="true" [maxDate]="futureDate" (onBlur)="checkDobONoID($event,iDNumber , dateOfBirth , reportedPerson)"></p-calendar>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">ID Number:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control"  pKeyFilter="int"  sars-idNumberfield sars-numericfield sars-limitfield="13"
+                                                    id="idNo" type="text" [ngModel]="reportedPersonData.IDNumber" name="IDNumber"
+                                                  #iD  #iDNumber="ngModel" (blur)="checkDobONoID($event,iDNumber , dateOfBirth , reportedPerson)"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Passport No:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control"   pKeyFilter="alphanum" sars-limitfield="18" sars-alphanumeric id="passNumber" type="text" [ngModel]="reportedPersonData.PassportNumber"
+                                                    name="PassportNumber" #passportNumber="ngModel" sars-passportnumber />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Passport Country (eg. South Africa=ZAF):</label> 
+                                            <div class="col-sm-8">
+
+                                                <p-dropdown required [options]="countryCodes" [(ngModel)]="reportedPersonData.CountryCodeObject" [style]="{'box-sizing': 'border-box', 'width':'80%' }"
+                                                    name="CountryPersonCodeObject" [filter]="true" optionLabel="CountryName"></p-dropdown>
+
+
+
+                                                <span *ngIf="reportedPersonData.CountryCodeObject != null">{{reportedPersonData.CountryCodeObject.CountryCode}}</span>
+
+                                            </div>
+                                        </div>
+
+                                        <div *ngIf="requiredPersonProvince(reportedPersonData)" class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Province:</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control" required [(ngModel)]="reportedPersonData.ProvinceId" name="ProvinceId" required #provinceId="ngModel">
+                                                    <option *ngFor="let province of provinces" [value]="province.ProvinceId">{{province.Description}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                    <p-footer>
+                                        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                            <button pButton type="button" icon="far fa-save"   [disabled]="disableRepSaveButton || !reportedPerson.valid" label="Save Person Details" (click)="addReportedPersonDetails(reportedPerson)"></button>
+                                            <button pButton type="button" icon="fas fa-edit"  [disabled]="disableRepButton" label="Done Edit" (click)="doneReportedPersonDetailsEdit(reportedPersonData,reportedPerson)"></button>
+                                        </div>
+                                    </p-footer>
+                                </p-dialog>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree"> 
+                                    <div class="panel-body divScroll">
+                                        <div class="form-group col-sm-12">
+                                            <p-toolbar>
+                                                <div class="ui-toolbar-group-left">
+                                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                                    <input [disabled]="repItems.length == 0" #gbe type="text" pInputText size="50" placeholder="filter">
+                                                </div>
+
+                                                <div class="ui-toolbar-group-right">
+                                                    <button pButton type="button" icon="fas fa-plus" label="Add Person Details" (click)="showReportedPersonDetails()"></button>
+                                                </div>
+                                            </p-toolbar>
+                                            <p-dataTable [immutable]=false [value]="repItems" [rows]="10" [paginator]="true" [globalFilter]="gbe" #dt>
+
+                                                <p-column field="Surname" header="Surname"></p-column>
+                                                <p-column field="FirstNames" header="First Two Names"></p-column>
+                                                <p-column field="DateOfBirth" header="Date of Birth">
+                                                    <ng-template let-col let-repItem="rowData " pTemplate="type">
+                                                        <div>{{repItem.DateOfBirth | date}}</div>
+                                                    </ng-template>
+                                                </p-column>
+                                                <p-column field="IDNumber" header="ID Number"></p-column>
+                                                <p-column styleClass="col-button">
+                                                    <ng-template let-repItem="rowData" pTemplate="body">
+                                                        <button type="button" pButton class='btn btn-primary btn-xs' label="Edit" (click)='reportedPersonDetailsEdit(repItem, reportedPerson,i)'></button>
+                                                    </ng-template>
+                                                </p-column>
+                                                <p-column styleClass="col-button">
+                                                    <ng-template let-repItem="rowData" pTemplate="body">
+                                                        <button [disabled]=allFieldsReadOnly type="button" pButton class='btn  btn-danger btn-xs' label="Delete" (click)='reportedPersonDetailsRemove(repItem)'></button>
+                                                    </ng-template>
+                                                </p-column>
+
+                                            </p-dataTable>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingFive">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false"
+                                            aria-controls="collapseFive">
+                                            Residential Business Address
+                                        </a>
+                                    </h4>
+                                </div>
+
+                                <p-dialog header=" Residential Business Address" [(visible)]="residentialBusinessDisplayDialog" [responsive]="false" [width]="650"
+                                    showEffect="fade" [modal]="true">
+                                    <form #resBus="ngForm">
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Unit No:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control"  pKeyFilter="alphanum"  sars-limitfield="4" id="unitNum" type="text"
+                                                    [ngModel]="residentialBusinessData.UnitNumber" name="UnitNumber" #unitNumber="ngModel" sars-alphanumeric
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Complex (if applicable):</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control" pInputText   sars-limitfield="100" id="complex" type="text"
+                                                    [ngModel]="residentialBusinessData.Complex" name="Complex" #complex="ngModel"sars-sepcialcharacter
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Street No:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control" pKeyFilter="alphanum"  sars-alphanumeric sars-limitfield="4" id="streetNumber" type="text"
+                                                    [ngModel]="residentialBusinessData.StreetNumber" name="StreetNumber" #streetNumber="ngModel"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Street/Name of Farm:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control" pInputText  sars-limitfield="100" id="streetName" type="text"
+                                                    [ngModel]="residentialBusinessData.StreetName" name="StreetName" sars-sepcialcharacter #SsreetName="ngModel"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Suburb/District:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly pInputText  sars-limitfield="100" class="form-control"  id="suburbDistrict"
+                                                    type="text" [ngModel]="residentialBusinessData.SuburbDistrict" name="SuburbDistrict"
+                                                    #suburbDistrict="ngModel" sars-sepcialcharacter />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">City/Town:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control" pInputText   sars-limitfield="100" id="cityTown" type="text"
+                                                    [ngModel]="residentialBusinessData.CityTown" name="CityTown" #cityTown="ngModel"  sars-sepcialcharacter
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Postal Code:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control"  pKeyFilter="int"  sars-limitfield="4" sars-numericfield id="postalCode"
+                                                    type="text" [ngModel]="residentialBusinessData.PostalCode" name="PostalCode"
+                                                    #postalCode="ngModel" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Country Code (e.g.South Africa=ZAF):</label>
+                                            <div class="col-sm-8">
+
+                                                <p-dropdown required [options]="countryCodes"  [(ngModel)]="residentialBusinessData.CountryCodeObject" [autoWidth]="false" [style]="{'box-sizing': 'border-box', 'width':'80%' }"
+                                                    name="CountryCodeObject" [filter]="true" optionLabel="CountryName">
+                                                </p-dropdown>
+
+
+                                                <span *ngIf="residentialBusinessData.CountryCodeObject != null">{{residentialBusinessData.CountryCodeObject.CountryCode}}</span>
+
+                                            </div>
+                                        </div>
+                                        <div *ngIf="requiredProvince(residentialBusinessData)" class="form-group col-md-12 col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-3">Province:</label>
+                                            <div class="col-sm-8">
+                                                <select [disabled]=allFieldsReadOnly required class="form-control" [(ngModel)]="residentialBusinessData.ProvinceId" name="ProvinceId"
+                                                    #ProvinceId="ngModel">
+                                                    <option *ngFor="let province of provinces" [value]="province.ProvinceId">{{province.Description}}</option>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                    <p-footer>
+                                        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                            <button pButton type="button" icon="far fa-save" [disabled]="disableRepBusSaveButton || !resBus.valid" label="Save  Residential Business"
+                                                (click)="addResBusinessAddress(resBus, residentialBusinessData)"></button>
+                                            <button pButton type="button" icon="fas fa-edit" [disabled]="disableRepBusButton" label="Done Edit" (click)="doneResBusinessAddressEdit(residentialBusinessData,resBus)"></button>
+                                        </div>
+                                    </p-footer>
+                                </p-dialog>
+
+                                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                    <div class="panel-body divScroll">
+
+                                        <div class="form-group col-sm-12">
+                                            <p-toolbar>
+                                                <div class="ui-toolbar-group-left">
+                                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                                    <input [disabled]="resItems.length == 0" #gbr type="text" pInputText size="50" placeholder="filter">
+                                                </div>
+
+                                                <div class="ui-toolbar-group-right">
+
+                                                    <button [disabled]=allFieldsReadOnly pButton type="button" icon="fas fa-plus" label="Add Residential Business" (click)="showesidentailBusinessAddress()"></button>
+
+                                                </div>
+                                            </p-toolbar>
+                                            <p-dataTable [immutable]=false [value]="resItems" [rows]="10" [paginator]="true" [globalFilter]="gbr" #dt>
+
+                                                <p-column  field="UnitNumber" header="Unit No"></p-column>
+                                                <p-column field="CityTown" header="City/Town"></p-column>
+                                                <p-column field="CountryCode" header="Country Code (e.g. South Africa=ZAF)"></p-column>
+                                                <p-column field="PostalCode" header="Postal Code"></p-column>
+                                                <p-column styleClass="col-button">
+                                                    <ng-template let-resItem="rowData" pTemplate="body">
+                                                        <button type="button" pButton class='btn btn-primary btn-xs' label="Edit" (click)='resBusinessAddressEdit(resItem, entityDetails ,i)'></button>
+                                                    </ng-template>
+                                                </p-column>
+                                                <p-column styleClass="col-button">
+                                                    <ng-template let-resItem="rowData" pTemplate="body">
+                                                        <button [disabled]=allFieldsReadOnly type="button" pButton class='btn  btn-danger btn-xs' label="Delete" (click)='residentialBusinessAddressRemove(resItem)'></button>
+                                                    </ng-template>
+                                                </p-column>
+
+                                            </p-dataTable>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingSix">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false"
+                                            aria-controls="collapseSix">
+                                            Non Compliance Details
+                                        </a>
+                                    </h4>
+                                </div>
+                                <p-dialog header="Non Compliance Details" [(visible)]="noncomplianceDetailsDisplayDialog" [responsive]="true" [width]="750"
+                                    showEffect="fade" [modal]="true" [contentStyle]="{'overflow':'auto','max-height':'730px'}">
+                                    <div class="row">
+                                        <form novalidate #nonCompliance="ngForm">
+                                            <div class="row form-group col-md-12 col-lg-12 col-sm-12">
+                                                <div class="col-md-7 col-lg-7 col-sm-7">
+                                                    <label class="control-label">Time frame:</label>
+                                                        <select [disabled]=allFieldsReadOnly class="form-control" required [(ngModel)]="nonComplianceData.TimeFrameId" name="TimeFrameId" #timeFrameId="ngModel">
+                                                        <option title={{timeFrame.Tooltip}} *ngFor="let timeFrame of timeFrameList" [disabled]=defaultLookupOption(timeFrame) [value]="timeFrame.TimeFrameId">{{timeFrame.Description}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group col-md-12 col-lg-12 col-sm-12">
+                                                <div class="col-md-6 col-lg-6 col-sm-6">
+                                                    <label class="control-label">Yearly Loss:</label>
+                                                    <select [disabled]=allFieldsReadOnly class="form-control" [(ngModel)]="nonComplianceData.YearlyLossId" name="YearlyLossId"
+                                                        #yearlyLossId="ngModel">
+                                                        <!-- <option> title="TEST TEST" </option>-->
+                                                        <option *ngFor="let yearlyLoss of yearlyLossList" [value]="yearlyLoss.YearlyLossId">{{yearlyLoss.Description}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row col-md-12  col-lg-12 col-sm-12">
+                                                    <div class="col-sm-10">
+                                                            <label class="control-label">Describe the incident i.e. what is occurring:</label>
+                                                            <textarea tooltipPosition="top"   tooltipStyleClass="tooltip-custom" pTooltip="Please describe the modus operandi (method of operation) employed to commit the noncompliance in detail i.e. what is the noncompliance that is occurring and how is the noncompliance being committed." [disabled]=allFieldsReadOnly class="form-control" required  sars-limitfield="4000" rows="2"
+                                                                cols="82" id="incidentOccurring" [ngModel]="nonComplianceData.DescribeNonCompliance"
+                                                                name="DescribeNonCompliance" #describeNonCompliance="ngModel" [pKeyFilter]="alphawithspace" sars-sepcialcharacter></textarea>
+                                                        </div>
+                                            </div>
+                                            <div class="form-group row col-md-12  col-lg-12 col-sm-12">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label">Describe where the incident is occurring i.e all the locations where
+                                                        non compliance is occuring (can be more than one address where non
+                                                        compliance is taking place):</label>
+                                                    <textarea pTooltip="Please provide all addresses or locations where the non-compliant is taking place." [disabled]=allFieldsReadOnly
+                                                        class="form-control" required  sars-limitfield="4000"
+                                                        rows="2" cols="82" id="describeIncident" [ngModel]="nonComplianceData.NonComplianceLocation"
+                                                        name="NonComplianceLocation" #nonComplianceLocation="ngModel" [pKeyFilter]="alphawithspace" sars-sepcialcharacter></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group col-md-12  col-lg-12 col-sm-12">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label">Describe when the non compliance occurs/ is said to occur:</label>
+                                                    <textarea tooltipPosition="top" pTooltip="Please indicate if the noncompliance occurs only during specific times or on specific days or if the noncompliance happens independent of any specific time or day "
+                                                        [disabled]=allFieldsReadOnly class="form-control" required 
+                                                        sars-limitfield="4000" rows="2" cols="82" id="describeCompliance" [pKeyFilter]="alphawithspace" [ngModel]="nonComplianceData.NonComplianceOccurance"
+                                                        name="NonComplianceOccurance" #nonComplianceOccurance="ngModel" sars-sepcialcharacter></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="row form-group row col-md-12  col-lg-12 col-sm-12">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label">Please provide any additional information of relevance:</label>
+                                                    <textarea pTooltip="Please provide any other relevant information that has not been provided in any of the other sections of this report"
+                                                        [disabled]=allFieldsReadOnly class="form-control" 
+                                                        sars-limitfield="4000" rows="2" cols="82" id="additionalInfo" [pKeyFilter]="alphawithspace" [ngModel]="nonComplianceData.AdditionalInfo"
+                                                        name="AdditionalInfo" #additionalInfo="ngModel" sars-sepcialcharacter ></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group  col-md-12  col-lg-12 col-sm-12" *ngIf="userRole=='CRCS Reviewer' && (buttonsToShow =='SarReviewer'|| buttonsToShow =='sarpendingreview')">
+                                                <div class="col-md-2  col-lg-2 col-sm-2">
+                                                    <label class="control-label">Risk Areas identified:</label>
+                                                    <input [disabled]=allFieldsReadOnly type="text" required sars-numericfield sars-zeronotallowed class="form-control"
+                                                        id="riskAreasIdentified" [ngModel]="nonComplianceData.RiskAreasIdentified"
+                                                        name="RiskAreasIdentified" #riskAreasIdentified="ngModel" />
+                                                </div>
+                                            </div>
+                                            <div class="row form-group  col-md-12  col-lg-12 col-sm-12">
+                                                <div class="col-md-12  col-lg-12 col-sm-12">
+                                                    <label class="control-label">Select where in the Customs value chain the non-compliance occurs / is
+                                                        said to occur</label>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-sm-3">Licensing and registration:</label>
+                                                <div class="col-sm-3">
+                                                    <select pTooltip="e.g. identity theft, abuse of the general customs code, non-registration etc." [disabled]=allFieldsReadOnly
+                                                        class="form-control" required id="licensingReg" [(ngModel)]="nonComplianceData.LicensingAndRegistration"
+                                                        name="LicensingAndRegistration" #licensingAndRegistration="ngModel">
+                                                        <option value=""></option>
+                                                        <option value="true">Yes</option>
+                                                        <option value="false">No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-sm-3">Submission:</label>
+                                                <div class="col-sm-3">
+                                                    <select pTooltip="e.g. non-submission of declaration, late submission of declaration" [disabled]=allFieldsReadOnly class="form-control"
+                                                        required id="submission" [(ngModel)]="nonComplianceData.Submission" name="Submission"
+                                                        #submission="ngModel">
+                                                        <option value=""></option>
+                                                        <option value="true">Yes</option>
+                                                        <option value="false">No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class=" row form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-sm-3">Declaration</label>
+                                                <div class="col-sm-3">
+                                                    <select pTooltip="e.g. non-declaration (smuggling), incorrect declaration (tariff misdeclaration, value / quantity misdeclaration) etc."
+                                                        [disabled]=allFieldsReadOnly class="form-control" required id="declaration"
+                                                        [(ngModel)]="nonComplianceData.Declaration" name="Declaration" #declaration="ngModel">
+                                                        <option value=""></option>
+                                                        <option value="true">Yes</option>
+                                                        <option value="false">No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class=" row form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-sm-3">Payment:</label>
+                                                <div class="col-sm-3">
+                                                    <select pTooltip="e.g. failure to pay duties and VAT due, late payment of duties and VAT due" [disabled]=allFieldsReadOnly
+                                                        class="form-control" required id="payment" [(ngModel)]="nonComplianceData.Payments"
+                                                        name="Payments" #payments="ngModel">
+                                                        <option value=""></option>
+                                                        <option value="true">Yes</option>
+                                                        <option value="false">No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-sm-3">Illegal Activities:</label>
+                                                <div class="col-sm-3">
+                                                    <select pTooltip="e.g. activities involving corruption, activities involving the illegal facilitation of imported and exported goods etc."
+                                                        [disabled]=allFieldsReadOnly class="form-control" required id="illegalActivities"
+                                                        [(ngModel)]="nonComplianceData.IllegalActivities" name="IllegalActivities"
+                                                        #illegalActivities="ngModel">
+                                                        <option value=""></option>
+                                                        <option value="true">Yes</option>
+                                                        <option value="false">No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class=" row form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-sm-3">Other:</label>
+                                                <div class="col-sm-3">
+                                                    <select tooltipPosition="top" pTooltip="Any other activities not classified as above" [disabled]=allFieldsReadOnly class="form-control"
+                                                        required id="other1" [(ngModel)]="nonComplianceData.Other" name="Other"
+                                                        #other="ngModel">
+                                                        <option value=""></option>
+                                                        <option value=true>Yes</option>
+                                                        <option value=false>No</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <p-footer>
+                                        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                            <button pButton type="button" [disabled]="!nonCompliance.valid || disableNonComSaveButton " icon="far fa-save" label="Save Non Compliance"
+                                                (click)="addNonComplianceDetails(nonCompliance)"></button>
+                                            <button pButton type="button" [disabled]="disableNonComButton" icon="fas fa-edit" label="Done Edit" (click)="doneNonComplianceDeatilsEdit(nonComplianceData,nonCompliance)"></button>
+                                        </div>
+                                    </p-footer>
+                                </p-dialog>
+                                <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+                                    <div class="panel-body divScroll">
+                                        <div class="form-group col-sm-12">
+
+                                            <p-toolbar>
+                                                <div class="ui-toolbar-group-left">
+                                                    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                                    <input [disabled]="nonComItems.length == 0" #gben type="text" pInputText size="50" placeholder="filter">
+                                                </div>
+
+                                                <div class="ui-toolbar-group-right">
+                                                    <button [disabled]=allFieldsReadOnly pButton type="button" icon="fas fa-plus" label="Add Non Compliance" (click)="showNoncomplianceDetailsDetails()"></button>
+                                                </div>
+                                            </p-toolbar>
+                                            <p-dataTable [immutable]=false [value]="nonComItems" [rows]="10" [paginator]="true" [globalFilter]="gben" #dt>
+
+                                                <p-column field="DescribeNonCompliance" header="Describe the incident"></p-column>
+
+                                                <p-column styleClass="col-button">
+                                                    <ng-template let-nonComItem="rowData" pTemplate="body">
+                                                        <button type="button" pButton class='btn btn-primary btn-xs' label="Edit" (click)='NonComplianceDetailsEdit(nonComItem, nonCompliance , i)'></button>
+                                                    </ng-template>
+                                                </p-column>
+                                                <p-column styleClass="col-button">
+                                                    <ng-template let-nonComItem="rowData" pTemplate="body">
+                                                        <button [disabled]=allFieldsReadOnly type="button" pButton class='btn  btn-danger btn-xs' label="Delete" (click)='onNonComplianceDataRemove(nonComItem , i)'></button>
+                                                    </ng-template>
+                                                </p-column>
+
+                                            </p-dataTable>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTen">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTen" aria-expanded="false"
+                                            aria-controls="collapseTen">
+                                            Person Reporting Details
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTen">
+                                    <div class="panel-body divScroll">
+
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-6">Did you wish to disclose your personal details:</label>
+                                            <div class="col-sm-3">
+                                                <select [disabled]=allFieldsReadOnly class="form-control" required id="disclosePersonalDetails" [(ngModel)]="sarData.SuspiciousActivityReportDetails?.PersonReportingDetails.IsPersonalInfoDisclosed"
+                                                    name="isPersonalInfoDisclosed" #isPersonalInfoDisclosed="ngModel">
+                                                    <option></option>
+                                                    <option value=false>No</option>
+                                                    <option value=true>Yes</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                            <label class="control-label col-sm-6">Are you willing to provide an affidavit in respect of this non compliant being
+                                                reported:
+                                            </label>
+                                            <div class="col-sm-3">
+                                                <select [disabled]=allFieldsReadOnly class="form-control" required id="provideAffidafit" [(ngModel)]="sarData.SuspiciousActivityReportDetails?.PersonReportingDetails.IsAffidavitProvided"
+                                                    name="IsAffidavitProvided" #isAffidavitProvided="ngModel">
+                                                    <option></option>
+                                                    <option value=false>No</option>
+                                                    <option value=true>Yes</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="isPersonalInfoDisclosed.value == true || isPersonalInfoDisclosed.value == 'true' ">
+                                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-sm-3">Surname:</label>
+                                                <div class="col-sm-8">
+                                                    <input [disabled]=allFieldsReadOnly class="form-control" required  id="surname1" sars-limitfield="50"
+                                                        ng-required="IsAffidavitProvided == true" type="text" [(ngModel)]="sarData.SuspiciousActivityReportDetails.PersonReportingDetails.Surname"
+                                                        name="Surname" #surname="ngModel" sars-sepcialcharacter />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-sm-3">Initials :</label>
+                                                <div class="col-sm-8">
+                                                    <input [disabled]=allFieldsReadOnly class="form-control" required  id="initials1" sars-limitfield="3"
+                                                        type="text" [(ngModel)]="sarData.SuspiciousActivityReportDetails.PersonReportingDetails.Initials"
+                                                        name="Initials" #initials="ngModel" sars-sepcialcharacter />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-sm-3">First Two Names :</label>
+                                                <div class="col-sm-8">
+                                                    <input [disabled]=allFieldsReadOnly class="form-control" required  id="firstTwoNames" sars-limitfield="100"
+                                                        type="text" [(ngModel)]="sarData.SuspiciousActivityReportDetails.PersonReportingDetails.FirstNames"
+                                                        name="FirstNames" #firstNames="ngModel" sars-sepcialcharacter />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-sm-3">Home Tel Numbers:</label>
+                                                <div class="col-sm-8">
+                                                    <input [disabled]=allFieldsReadOnly class="form-control" required sars-numericfield minlength="10" sars-limitfield="13" id="homenumber"
+                                                        type="text" [(ngModel)]="sarData.SuspiciousActivityReportDetails.PersonReportingDetails.HomeNumber"
+                                                        name="HomeNumber" #homeNumber="ngModel" pKeyFilter="int" />
+                                                    <div [hidden]="homeNumber.valid || homeNumber.pristine" class="alert alert-danger">
+                                                        <div>Min Number should be 10</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-sm-3">Business Tel Numbers:</label>
+                                                <div class="col-sm-8">
+                                                    <input [disabled]=allFieldsReadOnly class="form-control" required sars-numericfield minlength="10" sars-limitfield="13" id="busTelNumbers"
+                                                        type="text" [(ngModel)]="sarData.SuspiciousActivityReportDetails.PersonReportingDetails.BusinessNumber"
+                                                        name="BusinessNumber" #businessNumber="ngModel" pKeyFilter="int" />
+                                                    <div [hidden]="businessNumber.valid || businessNumber.pristine" class="alert alert-danger">
+                                                        <div>Min Number should be 10</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-sm-3">Fax number :</label>
+                                                <div class="col-sm-8">
+                                                    <input [disabled]=allFieldsReadOnly class="form-control" required sars-numericfield minlength="10" sars-limitfield="13" id="faxnumber"
+                                                        type="text" [(ngModel)]="sarData.SuspiciousActivityReportDetails.PersonReportingDetails.FaxNumber"
+                                                        name="FaxNumber" #faxNumber="ngModel" pKeyFilter="int" />
+                                                    <div [hidden]="faxNumber.valid || faxNumber.pristine" class="alert alert-danger">
+                                                        <div>Min Number should be 10</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-sm-3">Cell Number :</label>
+                                                <div class="col-sm-8">
+                                                    <input [disabled]=allFieldsReadOnly class="form-control" required sars-numericfield id="callNumber" minlength="10" sars-limitfield="13"
+                                                        type="text" [(ngModel)]="sarData.SuspiciousActivityReportDetails.PersonReportingDetails.CellNumber"
+                                                        name="CellNumber" #cellNumber="ngModel" pKeyFilter="int" />
+                                                    <div [hidden]="cellNumber.valid || cellNumber.pristine" class="alert alert-danger">
+                                                        <div>Min Number should be 10</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                                                <label class="control-label col-sm-3">Contact Email:</label>
+                                                <div class="col-sm-8">
+                                                    <input [disabled]=allFieldsReadOnly class="form-control" required sars-limitfield="50" sars-emailfield id="contactEmail" type="text"
+                                                        [(ngModel)]="sarData.SuspiciousActivityReportDetails.PersonReportingDetails.EmailAddress"
+                                                        name="EmailAddress" #emailAddress="ngModel"   sars-sepcialcharacter/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="userRole=='Superuser' ||  userRole=='User'||(userRole=='CRCS Ops Specialist'&& buttonsToShow !='SarAlocatedCases') || (userRole=='CRCS Reviewer' && buttonsToShow !='SarReviewer'&& buttonsToShow!='sarpendingreview') ">
+                    <button class='btn btn-primary' (click)="onSave(sarData , sarform)">Save</button>
+                    <button class='btn btn-primary' [disabled]="!sarform.valid" (click)="submitSar(sarData ,sarform)">Submit</button>
+                    <button class='btn btn-primary' (click)="onCancel()">Cancel</button>
+                </div>
+
+                <div *ngIf="(userRole=='CRCS Reviewer' && buttonsToShow =='SarReviewer'|| buttonsToShow=='sarpendingreview') || userRole=='Superuser' || (userRole=='CRCS Ops Specialist'&& buttonsToShow =='SarAlocatedCases') ">
+                    <button *ngIf="sarData.SuspiciousActivityReportDetails.CaseDetails.Status!='Allocated SAR: Pending in-depth analysis'" class='btn btn-primary'
+                        (click)="acceptSARReview(sarData)">Accept</button>
+                    <button *ngIf="sarData.SuspiciousActivityReportDetails.CaseDetails.Status=='Allocated SAR: Pending in-depth analysis'" class='btn btn-primary'
+                        (click)="acceptSARAnalysis(sarData)">Accept</button>
+                    <button class='btn btn-primary' (click)="rejectSARReview(sarData)">Discard</button>
+
+                    <button *ngIf="sarData.Stage == 'Indepth Analysis Cases' && Pending !== true" class='btn btn-primary' (click)="onPend(sarData)">Pend</button>
+                    <button *ngIf="sarData.Stage == 'Pending Analysis Cases' && Pending == true" class='btn btn-primary' (click)="onUnPend(sarData)">Un-Pend</button>
+
+                    <button class='btn btn-primary' *ngIf="sarData.SuspiciousActivityReportDetails.CaseDetails.CustomsExciseId == isExcise" (click)="closeReviewedSarCase(sarData)">Close</button>
+                    <button class='btn btn-primary' (click)="onCancel()">Cancel</button>
+                </div>
+
+                <div *ngIf="(userRole=='CRCS Quality Assurer') || userRole=='Superuser' ">
+                    <button class='btn btn-primary' (click)="qaAcceptDiscardedReview()">Agree</button>
+                    <button class='btn btn-primary' (click)="qaDisagreeDiscardSARForm()">Disagree</button>
+                    <button class='btn btn-primary' (click)="onCancel()">Cancel</button>
+                </div>
+                <div *ngIf="buttonsToShow =='Allocatesar' || buttonsToShow =='Reallotesar'">
+                    <button class='btn btn-primary' (click)="goBack()">Go Back</button>
+                </div>
+
+            </div>
+        </form>
+        <!-- </div> -->
+        <!-- </div> -->
+    </div>
+
+    <div class="col-md-4 col-lg-4 col-sm-4">
+        <div class="row" style="margin-top:30px;">
+            <div class="panelprimary">
+                <div class="panelheader">
+                    Select Documents
+                </div>
+                <div class="panelcontainerhalf col-md-12  col-lg-12 col-md-12  col-lg-12 col-sm-12" style="overflow: hidden !important;">
+                    <app-document-upload></app-document-upload>
+                </div>
+                <div *ngIf="userRole=='CRCS Reviewer' || userRole=='Superuser' || userRole=='CRCS Quality Assurer'" class="panelheader">
+                    View Comments
+                </div>
+                <div *ngIf="userRole=='CRCS Reviewer' || userRole=='Superuser' || userRole=='CRCS Quality Assurer'" class="panelcontainerhalf col-md-12  col-lg-12 col-md-12  col-lg-12 col-sm-12"
+                    style="overflow: hidden !important;">
+                    <app-comments-view id="commentsview" [caseID]="commentsCaseId"></app-comments-view>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

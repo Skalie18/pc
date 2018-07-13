@@ -1,0 +1,755 @@
+<div class="panel">
+    <div class=" panel-primary" style="width:100%!important">
+        <h2 class="panel-heading">CE CRCS Risk Assessment Report - {{viewTitle}}</h2>
+    </div>
+    <div *ngIf="viewTitle != 'Approval' && fromView != 'Audit Plan' && viewTitle != 'Scope' && viewTitle != 'Technical Review'" class="form-group col-sm-12">
+        <label class="control-label col-sm-2">IBR Customs Nbr:</label>
+        <div class="col-sm-4">
+            <input class="form-control" [(ngModel)]="IBRnumber" id="customsNor" type="text" />
+        </div>
+        <div class="col-sm-2">
+            <button class='btn btn-primary' (click)="getRAFormByIBRnumber()">Pre-Populate</button>
+        </div>
+    </div>
+
+    <div class="col-md-8 col-lg-8">
+
+        <form novalidate #riskAssment="ngForm">
+            <div class="panelcontainer" style="margin-top:30px;">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                            Reg Particulars as per IBR Date
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body divScroll">
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Case Status:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="CaseStatus" name="CaseStatus" id="CaseStatus" disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Customs Code:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.CustomsCode" name="CustomsCode" id="customsCode"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Registered Name:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.RegisteredName" name="RegisteredName"
+                                                    id="registeredName" disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Trading Name:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.TradingName" name="TradingName" id="tradingName"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Nature of Business Income Tax:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.NatureOfBusinessIncomeTax" name="NatureOfBusinessIncomeTax"
+                                                    id="businessIncomeTax" disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Nature of Business Customs:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.NatureOfBusinessCustoms" name="NatureOfBusinessCustoms"
+                                                    id="businessCustoms" disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Postal Address::</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.PostalAddress" name="PostalAddress" id="postalAddress"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Physical Address:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.PhysicalAddress" name="PhysicalAddress"
+                                                    id="physicalAddress" disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Telephone Nbr:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.TelNumber" name="TelNumber" id="telephoneNbr"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Fax Nbr:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.FaxNumber" name="FaxNumber" id="faxNbr"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Email Address:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.EmailAddress" name="EmailAddress" id="EmailAddress"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Website Address:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.WebsiteAddress" name="WebsiteAddress"
+                                                    id="WebsiteAddress" disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Auditors (CIPC):</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.AuditorsCIPC" name="AuditorsCIPC" id="auditor"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Attorneys:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.Attorneys" name="Attorneys" id="attorneys"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Restricted Taxpayer:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.RestrictedTaxpayer" name="RestrictedTaxpayer"
+                                                    id="restrictedTaxpayer" disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Company Nbr:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.CompanyNbr" name="CompanyNbr" id="companyNbr"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Income Tax Nbr:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.IncomeTaxNbr" name="IncomeTaxNbr" id="incomeTaxNbr"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">VAT Nbr:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.VATNumber" name="VATNumber" id="vatNbr"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">UIF Nbr:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.UIFNumber" name="UIFNumber" id="UIFNbr"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">SDL Nbr:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.SDLNumber" name="SDLNumber" id="sdlNbr"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">SAP Fin Nbr:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.SAPFinNumber" name="SAPFinNumber" id="SAPFinNbr"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Linked customs codes:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.LinkedCustomsCode" name="LinkedCustomsCode"
+                                                    id="linkedCustomsCodes:" disabled type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">PAYE Nbr:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" [(ngModel)]="riskAssessmentData.RegistrationParticulars.PAYENumber" name="PAYENumber" id="PAYENbr"
+                                                    disabled type="text" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+                                            aria-controls="collapseTwo">
+                                            Customs Reg Particulars carried on RAS
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body divScroll">
+                                        <p-dialog header="Customs Reg Particulars carried on RAS" [(visible)]="customersRegDisplayDialog" [responsive]="false" [width]="650"
+                                            showEffect="fade" [modal]="true">
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Ref Nbr:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="customsParticularsClass.IBRCustumsNbr" name="IBRCustumsNbr" id="IBRCustumsNbr" disabled
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Registration Type:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="customsParticularsClass.RegistrationType" name="CustomsRASId" id="registrationType"
+                                                        disabled type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Address:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="customsParticularsClass.Address" name="Address" id="address" disabled type="text"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Status:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="customsParticularsClass.Status" name="status" id="status" disabled type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Date Active/Inactive:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="customsParticularsClass.DateActiveInActive" name="DateActiveInActive" id="dateActive"
+                                                        disabled type="text" />
+                                                </div>
+                                            </div>
+                                            <p-footer>
+                                                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                                    <button pButton type="button" icon="fas fa-window-close" label="Close" (click)="closeCustRegWindow()"></button>
+                                                </div>
+                                            </p-footer>
+                                        </p-dialog>
+                                        <!-- </div> -->
+
+
+
+                                        <div class="form-group col-sm-12">
+                                           <p-dataTable [immutable]=false [value]="riskAssessmentData.CustomsRASParticulars" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+
+                                                <p-column field="IBRCustumsNbr" header="Ref Nbr"></p-column>
+                                                <p-column field="RegistrationType" header="Registration Type"></p-column>
+                                                <p-column field="Address" header="Address"></p-column>
+                                                <p-column field="Status" header="Status"></p-column>
+                                                <p-column field="DateActiveInActive" header="Date Active/Inactive"></p-column>
+
+                                                <p-column styleClass="col-button">
+                                                    <ng-template let-item="rowData" pTemplate="body">
+                                                        <button type="button" pButton class='btn  btn-danger btn-xs' label="View" (click)='onViewCustomerRegParticulars(item, 0)'></button>
+                                                    </ng-template>
+                                                </p-column>
+
+                                            </p-dataTable>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false"
+                                            aria-controls="collapseThree">
+                                            Director Details
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                    <div class="panel-body divScroll">
+                                        <p-dialog header=" Director Details" [(visible)]="directorDetailsDisplayDialog" [responsive]="false" [width]="650" showEffect="fade"
+                                            [modal]="true">
+
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Company Nbr:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="directorDetailsClass.CompanyNumber" name="CompanyNumber" id="companyNrb" disabled
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Surname:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="directorDetailsClass.Surname" name="Surname" id="surname" disabled type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">First Names:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="directorDetailsClass.FirstNames" name="FirstNames" id="firstnames" disabled type="text"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">ID No.</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="directorDetailsClass.IDNumber" disabled name="IDNumber" id="IDNumber" type="number"
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Director Type:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="directorDetailsClass.DirectorType" name="DirectorType" id="directorType" disabled
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Director Status:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="directorDetailsClass.DirectorStatus" name="DirectorStatus" id="directorStatus:"
+                                                        disabled type="text" />
+                                                </div>
+                                            </div>
+                                            <p-footer>
+                                                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                                    <button pButton type="button" icon="fas fa-window-close" label="Close" (click)="closeWindow()"></button>
+                                                </div>
+                                            </p-footer>
+                                        </p-dialog>
+
+                                        <div class="form-group col-sm-12">
+
+                                           <p-dataTable [immutable]=false [value]="riskAssessmentData.DirectorDetails" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+
+                                                <p-column field="CompanyNumber" header="Company Nbr"></p-column>
+                                                <p-column field="Surname" header="Surname"></p-column>
+                                                <p-column field="FirstNames" header="First Names"></p-column>
+                                                <p-column field="IDNumber" header="ID No"></p-column>
+                                                <p-column field="DirectorType" header="Director Type"></p-column>
+
+                                                <p-column styleClass="col-button">
+                                                    <div *ngFor='let item of riskAssessmentData.DirectorDetails' class="row tableoutline">
+                                                        <ng-template let-item="rowData" pTemplate="body">
+                                                            <button type="button" pButton class='btn  btn-danger btn-xs' label="View" (click)='onViewDirectorDetails(item, 0)'></button>
+                                                        </ng-template>
+                                                    </div>
+                                                </p-column>
+
+                                            </p-dataTable>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingFour">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false"
+                                            aria-controls="collapseFour">
+                                            Customs Turnover
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                    <div class="panel-body divScroll">
+                                        <p-dialog header="Customs Turnover" [(visible)]="customersTurnoverDisplayDialog" [responsive]="false" [width]="650" showEffect="fade"
+                                            [modal]="true">
+
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Ref Nbr:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="customsTurnOverDetailsClass.IBRCustumsNbr" name="ReferenceNumber" id="refNbr" disabled
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Cal Year:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="customsTurnOverDetailsClass.CalendarYear" name="CalendarYear" id="calYear" disabled
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Import Value:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="customsTurnOverDetailsClass.ImportValue" name="ImportValue" id="importValue" disabled
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Import Duty:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="customsTurnOverDetailsClass.ImportDuty" name="ImportDuty" id="importDuty" disabled
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Import VAT:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="customsTurnOverDetailsClass.ImportVAT" name="ImportVAT" id="importVAT" disabled
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Export Lines:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="customsTurnOverDetailsClass.ExportLines" name="ExportLines" id="exportLines" disabled
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-12">
+                                                <label class="control-label col-sm-3">Export Value:</label>
+                                                <div class="col-sm-8">
+                                                    <input class="form-control" [(ngModel)]="customsTurnOverDetailsClass.ExportValue" name="ExportValue" id="exportValue" disabled
+                                                        type="text" />
+                                                </div>
+                                            </div>
+                                            <p-footer>
+                                                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                                    <button pButton type="button" icon="fas fa-window-close" label="Close" (click)="closeWindowCustomersTurnover()"></button>
+                                                </div>
+                                            </p-footer>
+                                        </p-dialog>
+
+                                        <div class="form-group col-sm-12">
+
+                                           <p-dataTable [immutable]=false [value]="riskAssessmentData.CustomsTurnOverDetails" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+
+                                                <p-column field="IBRCustumsNbr" header="Ref Nbr"></p-column>
+                                                <p-column field="CalendarYear" header="Cal Year"></p-column>
+                                                <p-column field="ImportValue" header="Import Value"></p-column>
+                                                <p-column field="ImportDuty" header="Import Duty"></p-column>
+                                                <p-column field="ImportVAT" header="Import VAT"></p-column>
+
+                                                <p-column styleClass="col-button">
+                                                    <ng-template let-item="rowData" pTemplate="body">
+                                                        <button type="button" pButton class='btn  btn-danger btn-xs' label="View" (click)='onViewCustomerTurnOver(item, 0)'></button>
+                                                    </ng-template>
+                                                </p-column>
+
+                                            </p-dataTable>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingFive">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false"
+                                            aria-controls="collapseFive">
+                                            Risk Statement
+                                        </a>
+                                    </h4>
+                                </div>
+                                <p-dialog header=" Risk Statement" [(visible)]="riskStatementDisplayDialog" [responsive]="false" [width]="650" showEffect="fade"
+                                    [modal]="true">
+
+                                    <form novalidate #RiskDetails="ngForm">
+
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Case Status:</label>
+                                            <div class="col-sm-8">
+                                                <input class="form-control" name="Status" id="Status" #RiskStatementId="ngModel" type="text" [(ngModel)]="riskStatement.Status"
+                                                    readonly />
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Risk Area(s):</label>
+                                            <div class="col-sm-8">
+                                                <select [disabled]=allFieldsReadOnly class="form-control" required name="RiskAreaId" [(ngModel)]="riskStatement.RiskAreaId">
+                                                    <option></option>
+                                                    <option *ngFor="let riskAssessment of riskArealist" [ngValue]="riskAssessment.RiskAreaId">{{riskAssessment.Description}}</option>
+                                                </select>
+
+                                            </div>
+                                        </div>
+
+                                        <div *ngIf="viewTitle == 'Audit Plan'" class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Should this risk area be audited?</label>
+                                            <div class="col-sm-8">
+                                                <select [disabled]=allFieldsReadOnly class="form-control" [(ngModel)]="riskStatement.AuditRiskArea" name="AuditRiskArea"
+                                                    required>
+                                                    <option [ngValue]="null"></option>
+                                                    <option *ngFor="let t of toggleCollection" [ngValue]="t.Value">{{t.DisplayText}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div *ngIf="viewTitle == 'Audit Plan' && !riskStatement.AuditRiskArea" class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Comments</label>
+                                            <div class="col-sm-8">
+                                                <textarea [disabled]=allFieldsReadOnly class="form-control" sars-limitfield="4000" type="text" required [(ngModel)]="riskStatement.RiskAreaComment"
+                                                    name="EntriesInvolved" #entriesInvolved="ngModel">
+                                                </textarea>
+                                            </div>
+                                        </div>
+
+                                        <div *ngIf="viewTitle == 'Findings' && riskStatement.AuditRiskArea" class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Findings</label>
+                                            <div class="col-sm-8">
+                                                <textarea [disabled]=allFieldsReadOnly class="form-control" sars-limitfield="4000" type="text" required [(ngModel)]="riskStatement.AuditFindings"
+                                                    name="EntriesInvolved" #entriesInvolved="ngModel">
+                                                </textarea>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Number of risks per risk area:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control" sars-numericfield sars-limitfield="3" id="numberofRisks" type="number"
+                                                    name="NumberOfRiskPerRiskArea" [(ngModel)]="riskStatement.NumberOfRiskPerRiskArea"
+                                                    #NumberOfRiskPerRiskArea="ngModel" required />
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Recommendations:</label>
+                                            <div class="col-sm-8">
+                                                <textarea [disabled]=allFieldsReadOnly class="form-control" sars-sepcialcharacter sars-limitfield="4000" type="text" id="recommendations"
+                                                    type="text" [(ngModel)]="riskStatement.Recommendations" name="Recommendations"
+                                                    required>
+                                                                </textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Risk Description:</label>
+                                            <div class="col-sm-8">
+
+                                                <textarea [disabled]=allFieldsReadOnly class="form-control" sars-sepcialcharacter sars-limitfield="4000" type="text" id="riskDescription"
+                                                    type="text" [(ngModel)]="riskStatement.RiskDescription" name='RiskDescription'
+                                                    required>
+                                                                                                    </textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Risk rating- Likelihood:</label>
+                                            <div class="col-sm-8">
+                                                <select [disabled]=allFieldsReadOnly class="form-control" id='RiskRatingLikelihoodId' [(ngModel)]="riskStatement.RiskRatingLikelihoodId"
+                                                    name='RiskRatingLikelihoodId' required (change)="calculateOverallRiskRating()">
+                                                    <option></option>
+                                                    <option *ngFor="let riskRatingsLikelihood of riskRatingsLikelihoodList" [value]="riskRatingsLikelihood.RiskRatingLikelihoodId">{{riskRatingsLikelihood.Description}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Risk rating- Consequence:</label>
+                                            <div class="col-sm-8">
+                                                <select [disabled]=allFieldsReadOnly class="form-control" name="RiskRatingConcernedId" id='RiskRatingConcernedId' [(ngModel)]="riskStatement.RiskRatingConcernedId"
+                                                    required (change)="calculateOverallRiskRating()">
+                                                    <option></option>
+                                                    <option *ngFor="let riskRatingsConcerned of riskRatingsConcernedList" [value]="riskRatingsConcerned.RiskRatingConcernedId">{{riskRatingsConcerned.Description}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Overall Risk Rating:</label>
+                                            <div class="col-sm-2">
+                                                <input [disabled]=allFieldsReadOnly class="form-control" sars-numericfield sars-limitfield="2" name="OveralRiskRating" disabled
+                                                    type="text" [(ngModel)]="riskStatement.OveralRiskRating" required/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">HS chapter the risk applies to:</label>
+                                            <div class="col-sm-8">
+                                                <select [disabled]=allFieldsReadOnly class="form-control" name="HSChapterAppliedToId" [(ngModel)]="riskStatement.HSChapterAppliedToId"
+                                                    required>
+                                                    <option></option>
+                                                    <option *ngFor="let HSChapterApplied of HSChapterAppliedList" [value]="HSChapterApplied.HSChapterAppliedToId">{{HSChapterApplied.Description}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Estimated Revenue at risk:</label>
+                                            <div class="col-sm-8">
+                                                <input [disabled]=allFieldsReadOnly class="form-control" sars-numericfield sars-limitfield="13" name="EstimatedRevenueAtRisk"
+                                                    type="text" [(ngModel)]="riskStatement.EstimatedRevenueAtRisk" required/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-3">Industry type:</label>
+                                            <div class="col-sm-8">
+                                                <select [disabled]=allFieldsReadOnly class="form-control" name="industryID" [(ngModel)]="riskStatement.IndustryId" required>
+                                                    <option></option>
+                                                    <option *ngFor="let industry of industryList" [value]="industry.IndustryId">{{industry.Description}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-8">In addition to Customs and Excise compliance risks, was any risks for any other
+                                                tax types also identified in this Risk Assessment that would indicate that
+                                                an integrated audit is required?:</label>
+                                            <div class="col-sm-3">
+                                                <select [disabled]=allFieldsReadOnly class="form-control" [(ngModel)]="riskStatement.IsIntegratedAuditRequired" name="IsIntegratedAuditRequired"
+                                                    required>
+                                                    <option [ngValue]="null"></option>
+                                                    <option *ngFor="let t of toggleCollection" [ngValue]="t.Value">{{t.DisplayText}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-12">
+                                            <label class="control-label col-sm-8">Does this Risk Assessment relate to any of the SARS Compliance Programme or Customs
+                                                focus areas?:</label>
+                                            <div class="col-sm-3">
+                                                <select [disabled]=allFieldsReadOnly class="form-control" [(ngModel)]="riskStatement.IsRelateToSarsComplianceOrCustomsFocusArea"
+                                                    name='IsRelateToSarsComplianceOrCustomsFocusArea' required>
+                                                    <option [ngValue]="null"></option>
+                                                    <option *ngFor="let t of toggleCollection" [ngValue]="t.Value">{{t.DisplayText}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <p-footer>
+                                        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+
+                                            <button [disabled]=allFieldsReadOnly pButton type="button" icon="far fa-save" label="Save Risk" (click)="addRefDetails(riskStatement)"></button>
+                                            <button [disabled]=allFieldsReadOnly pButton type="button" icon="fas fa-edit" label="Update" (click)="onEdit(riskStatement)"></button>
+                                        </div>
+                                    </p-footer>
+                                </p-dialog>
+
+                                <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+
+                                    <div class="form-group col-sm-12">
+
+                                        <p-toolbar>
+                                            <div class="ui-toolbar-group-left">
+                                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                                <input #gb type="text" pInputText size="50" placeholder="Search">
+                                            </div>
+
+                                            <div class="ui-toolbar-group-right">
+
+                                                <button [disabled]=allFieldsReadOnly pButton type="button" icon="fas fa-plus" label="Add Risk Statement" (click)="showRiskSatement()"></button>
+
+                                            </div>
+                                        </p-toolbar>
+                                       <p-dataTable [immutable]=false [value]="items" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+                                            <p-column field="Status" header="Case Status"></p-column>
+                                            <p-column field="NumberOfRiskPerRiskArea" header="Number of Risk"></p-column>
+                                            <p-column field="DateCreated" header="Date Created"></p-column>
+                                            <p-column field="EstimatedRevenueAtRisk" header="Estimated Revenue at risk"></p-column>
+                                            <p-column styleClass="col-button">
+                                                <ng-template let-item="rowData" pTemplate="body">
+                                                    <button *ngIf="!allFieldsReadOnly" type="button" pButton class='btn btn-primary btn-xs' label="Edit" (click)='onRefDetailsEdit(item, i)'></button>
+                                                    <button *ngIf="allFieldsReadOnly" type="button" pButton class='btn btn-primary btn-xs' label="View" (click)='onRefDetailsEdit(item, i)'></button>
+                                                </ng-template>
+                                            </p-column>
+                                            <p-column styleClass="col-button">
+                                                <ng-template let-item="rowData" pTemplate="body">
+                                                    <button [disabled]=allFieldsReadOnly type="button" pButton class='btn btn-danger btn-xs' label="Delete" (click)='onRefDetailsRemove(dt,item)'></button>
+                                                </ng-template>
+                                            </p-column>
+                                        </p-dataTable>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default" hidden>
+                                <div class="panel-heading" role="tab" id="headingSix">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false"
+                                            aria-controls="collapseSix">
+                                            Checklist
+                                        </a>
+                                    </h4>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="viewTitle != 'Approval' && fromView != 'Audit Plan' && viewTitle != 'Technical Review'">
+                    <div class="col-md-12 col-lg-12" style="text-align:center">
+                        <button *ngIf="viewTitle != 'Scope'" class='btn btn-primary' (click)="onSave(riskAssessmentData)">Save</button>
+                        <button *ngIf="whichRoleActive != 'Rarework' && viewTitle != 'Audit Plan' && !enableBackNavigation" class='btn btn-primary' (click)=onsubmit()>Submit</button>
+                        <button *ngIf="whichRoleActive == 'rarework' && viewTitle != 'Audit Plan' && !enableBackNavigation" class='btn btn-primary' (click)=onreworksubmit()>Submit</button>
+                        <button *ngIf="viewTitle != 'Audit Plan' || !enableBackNavigation" class='btn btn-primary' (click)="onCancel()">Cancel</button>
+                        <button *ngIf="viewTitle == 'Audit Plan' || enableBackNavigation" class='btn btn-primary' (click)="onBack()">Go Back</button>
+                    </div>
+                </div>
+
+                <div *ngIf="viewTitle == 'Approval' && fromView != 'Audit Plan' ">
+                    <div class="col-md-12 col-lg-12" style="text-align:center">
+
+                        <button class='btn btn-primary' (click)="onAccept()">Accept</button>
+                        <button class='btn btn-primary' (click)="onrework()">Rework</button>
+                        <button class='btn btn-primary' (click)="onReject()">Reject</button>
+                        <button class='btn btn-primary' (click)="onQaAllocation()">Allocate to QA</button>
+
+                    </div>
+                </div>
+
+                <div *ngIf="viewTitle == 'Technical Review'">
+                    <div class="col-md-12 col-lg-12" style="text-align:center">
+
+                        <!-- <button class='btn btn-primary' (click)="onTechnicalReviewAction()">Save</button> -->
+                        <button *ngIf="userRole == 'CRCS Quality Assurer' || userRole == 'Superuser' " class='btn btn-primary' (click)="onTechnicalReviewAction('approveRaTechnicalReviewReport')">Accept</button>
+                        <button *ngIf="userRole == 'CRCS Ops Manager' || userRole == 'Superuser'" class='btn btn-primary' (click)="onAccept()">Accept</button>
+                        <button class='btn btn-primary' (click)="onTechnicalReviewAction('reworkRaTechnicalReviewReport')">Rework</button>
+                        <button  class='btn btn-primary' (click)="onTechnicalReviewAction('rejectRaTechnicalReviewReport')">Reject</button>
+                        <button *ngIf="userRole == 'CRCS Ops Manager' || userRole == 'Superuser'" class='btn btn-primary' (click)="onTechnicalReviewAction('dissaproveRaTechnicalReviewReport')">DisApprove</button>
+
+                    </div>
+                </div>
+
+
+                <div *ngIf="fromView == 'Audit Plan'">
+                    <button class='btn btn-primary' (click)="onBack()">Go Back</button>
+                    <button  class='btn btn-primary' (click)="onCancel()">Cancel</button>
+                </div>
+                <!-- </div> -->
+            </div>
+        </form>
+
+    </div>
+    <!--documents-->
+    <div class="col-md-4  col-lg-4 col-sm-4">
+        <div class="row" style="margin-top:-7px;">
+            <div class="panelprimary">
+                <div class="panelheader">
+                    Select Documents
+                </div>
+                <div class="panelcontainerhalf col-md-12 col-lg-12 col-sm-12" style="overflow: hidden !important;">
+                    <app-document-upload></app-document-upload>
+                </div>
+                <div *ngIf="userRole!='Client Interface Department'">
+                    <div class="panelheader" style="margin-top: 13px;">
+                        View Comments
+                    </div>
+                    <div class="panelheader col-md-12 col-lg-12 col-sm-12" style="margin-top: 13px;" *ngIf="userRole!='Client Interface Department'">
+                        <div class="panelcontainerhalf" style="overflow: hidden !important;">
+                            <app-comments-view id="commentsview" [caseID]="commentsCaseId"></app-comments-view>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-loadingbar [isPostActionCompleted]="isPostActionCompleted" [isLoaded]="isLoaded"> </app-loadingbar>

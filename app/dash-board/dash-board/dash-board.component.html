@@ -1,0 +1,45 @@
+<div class="panel">
+    <div class=" panel-primary row">
+      <h2 class="panel-heading">CE CRCS & CI DASHBOARD</h2>
+    </div>
+    <app-loadingbar [isLoaded]="isLoaded"></app-loadingbar>
+    <div class="panel-primary row dashcontainer">
+      <div class="row" [hidden]="!isLoaded">
+        <div class="col-md-3 col-sm-3">
+          <div class="well-sm rcorners1">
+            <p-chart #newitems type="bar" [data]="newitemsdata" [options]="newoptions"></p-chart>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3">
+          <div class="well-sm rcorners1">
+            <p-chart #pendedchart type="bar" [data]="pendeddata" [options]="pendedoptions"></p-chart>
+          </div>
+        </div>
+        <div class=" col-md-6 col-sm-6">
+          <div class="well-sm rcorners1">
+            <p-chart #regionitems type="bar" [data]="regiondata" [options]="regionoptions"></p-chart>
+          </div>
+        </div>
+      </div>
+      <div class="row h-70" [hidden]="!isLoaded">
+        <div class="col-md-3 col-sm-3" [hidden]="true">
+          <div class="well-sm rcorners2">
+            <p-chart #sarchart type="doughnut" [data]="sardata" [options]="saroptions"></p-chart>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="well-sm rcorners2">
+            <p-chart #progresschart type="bar" [data]="progressdata" [options]="progoptions"></p-chart>
+            <input type="radio" value="VDDL" [(ngModel)]="caseFilter" (click)="redrawProgressChart('VDDL')"> VDDL
+            <input type="radio" value="SAR" [(ngModel)]="caseFilter" (click)="redrawProgressChart('SAR')" > SAR
+            <input type="radio" value="RA" [(ngModel)]="caseFilter" (click)="redrawProgressChart('RA')" > Risk Assessment
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="well-sm rcorners2">
+            <p-chart #mychart type="pie" [data]="mydata" [options]="myoptions"></p-chart>
+          </div>
+        </div>
+      </div>
+    </div>   
+  </div>

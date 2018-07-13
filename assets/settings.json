@@ -1,0 +1,8 @@
+{
+<<<<<<< HEAD
+    "urlAddress":"http://localhost/PCA_Webapi/",
+=======
+    "urlAddress":"http://localhost:100/",
+>>>>>>> 15995ad52c2d219e6c9100ceb5c345116e297e9c
+    "versionNumber" : "1.1.9006"
+} 

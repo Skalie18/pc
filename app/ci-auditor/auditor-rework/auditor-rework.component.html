@@ -1,0 +1,726 @@
+<div class="panel">
+  <div class=" panel-primary">
+    <h2 class="panel-heading">{{windowLabel}}</h2>
+  </div>
+
+  <div class="panelprimary hidescroll" style="margin-top:-10px !important; margin-right:0px !important">
+    <div class="panelcontainer hidescroll">
+
+      <div class="row">
+        <div class="col-md-8 col-lg-8 col-sm-8">
+
+          <div class="row">
+            <div class="panelprimary" style="margin-left:15px">
+              <div class="panelheader">
+                Audit Plan details
+              </div>
+              <div class="panelcontainer" style="margin-bottom: -58px;">
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" style="margin-top: -32px;">
+
+                  <div *ngIf="windowLabel != 'Audit Case Approval'" class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                      <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"
+                          style="color:white">
+                          Audit Findings
+                        </a>
+                      </h4>
+
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+                      <div class="panel-body">
+
+                        <h3 style="text-align:center; font-weight:bold">Findings Details</h3>
+
+                        <fieldset [disabled]=allFieldsReadOnly>
+
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Salutation:</label>
+                            <div class="col-sm-7">
+
+                              <select class="form-control" required name="ClientTypeId" [(ngModel)]="AuditFindings.AuditorFindings.ClientTypeId">
+                                <option *ngFor="let t of ClientNameAuditLook" [ngValue]="t.ClientNameId">{{t.Description}}</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Client Name:</label>
+                            <div class="col-sm-7">
+                              <input class="form-control" [disabled]=allFieldsReadOnly required type="text" sars-limitfield="35" [(ngModel)]="AuditFindings.FindingsAddress.ClientName"
+                                name="ClientName" #ClientName="ngModel" />
+                            </div>
+                          </div>
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Registered Name:</label>
+                            <div class="col-sm-7">
+                              <input class="form-control" [disabled]=allFieldsReadOnly required type="text" [(ngModel)]="AuditFindings.FindingsAddress.RegisteredName"
+                                name="RegisteredName" #RegisteredName="ngModel" />
+                            </div>
+                          </div>
+
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Comments</label>
+                            <div class="col-sm-7">
+
+                              <textarea class="form-control" [disabled]=allFieldsReadOnly required sars-limitfield="2000" type="text" required [(ngModel)]="AuditFindings.AuditorFindings.ClientComments"
+                                name="ClientComments" #ClientComments="ngModel">
+                            </textarea>
+
+                            </div>
+                          </div>
+
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Findings</label>
+                            <div class="col-sm-7">
+                              <textarea class="form-control" [disabled]=allFieldsReadOnly required sars-limitfield="2000" type="text" required [(ngModel)]="AuditFindings.AuditorFindings.Findings"
+                                name="Findings" #Findings="ngModel">
+                            </textarea>
+
+
+                            </div>
+                          </div>
+
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Audit Period</label>
+                            <div class="col-sm-7">
+                              <input class="form-control" required type="text" [(ngModel)]="AuditFindings.AuditorFindings.AuditPeriod" name="Other" #AuditPeriod="ngModel">
+                            </div>
+                          </div>
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Goods dealt with?</label>
+                            <div class="col-sm-1">
+                              <input class="form-control" type="checkbox" [(ngModel)]="AuditFindings.AuditorFindings.GoodsDealtsWith" name="GoodsDealtsWith"
+                                #GoodsDealtsWith="ngModel" />
+                              <!-- <p-checkbox name="groupname" required type="checkbox" [(ngModel)]="AuditFindings.AuditorFindings.GoodsDealtsWith" name="GoodsDealtsWith"
+                              #GoodsDealtsWith="ngModel"></p-checkbox> -->
+                            </div>
+                          </div>
+
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Amount days to contact</label>
+                            <div class="col-sm-7">
+                              <input class="form-control" [disabled]=allFieldsReadOnly required type="number" [(ngModel)]="AuditFindings.AuditorFindings.AmountDaystoContact"
+                                name="AmountDaystoContact" #AmountDaystoContact="ngModel" />
+                            </div>
+                          </div>
+
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Total B </label>
+                            <div class="col-sm-7">
+                              <input class="form-control" [disabled]=allFieldsReadOnly required type="number" [(ngModel)]="AuditFindings.AuditorFindings.TotalB"
+                                name="TotalB" #TotalB="ngModel" />
+                            </div>
+                          </div>
+
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Total Vat duty </label>
+                            <div class="col-sm-7">
+                              <input class="form-control" [disabled]=allFieldsReadOnly required type="number" [(ngModel)]="AuditFindings.AuditorFindings.TotalVatDuty"
+                                name="TotalVatDuty" #TotalVatDuty="ngModel" />
+                            </div>
+                          </div>
+
+                          <br>
+
+                          <h3 style="text-align:center; font-weight:bold">Address</h3>
+
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Address Line1:</label>
+                            <div class="col-sm-7">
+                              <input class="form-control" [disabled]=allFieldsReadOnly required type="text" [(ngModel)]="AuditFindings.FindingsAddress.AddressLine1"
+                                name="AddressLine1" #AddressLine1="ngModel" />
+                            </div>
+                          </div>
+
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Address Line2:</label>
+                            <div class="col-sm-7">
+                              <input class="form-control" [disabled]=allFieldsReadOnly required type="text" [(ngModel)]="AuditFindings.FindingsAddress.AddressLine2"
+                                name="AddressLine2" #AddressLine2="ngModel" />
+                            </div>
+                          </div>
+
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Address Line3:</label>
+                            <div class="col-sm-7">
+                              <input class="form-control" [disabled]=allFieldsReadOnly required type="text" [(ngModel)]="AuditFindings.FindingsAddress.AddressLine3"
+                                name="AddressLine3" #AddressLine3="ngModel" />
+                            </div>
+                          </div>
+
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Address Line4:</label>
+                            <div class="col-sm-7">
+                              <input class="form-control" [disabled]=allFieldsReadOnly required type="text" [(ngModel)]="AuditFindings.FindingsAddress.AddressLine4"
+                                name="AddressLine4" #AddressLine4="ngModel" />
+                            </div>
+                          </div>
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">PostalCode</label>
+                            <div class="col-sm-7">
+                              <input class="form-control" [disabled]=allFieldsReadOnly required type="text" [(ngModel)]="AuditFindings.FindingsAddress.PostalCode"
+                                name="PostalCode" #PostalCode="ngModel" />
+                            </div>
+                          </div>
+
+                          <br>
+                          <p-dialog header="Offence details Details" [(visible)]="displayDialogOffence" [responsive]="false" [width]="650" showEffect="fade"
+                            [modal]="true">
+                            <h3 style="text-align:center; font-weight:bold"></h3>
+                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                              <label class="control-label col-sm-4">Section/Rule Contravened:</label>
+                              <div class="col-sm-7">
+                                <textarea class="form-control" [disabled]=allFieldsReadOnly required type="text" sars-limitfield="1000" [(ngModel)]="currentOffenceDetail.SectionRuleContravened"
+                                  name="SectionRuleContravened" #SectionRuleContravened="ngModel"></textarea>
+                              </div>
+                            </div>
+
+                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                              <label class="control-label col-sm-4">Circumstance:</label>
+                              <div class="col-sm-7">
+                                <textarea class="form-control" [disabled]=allFieldsReadOnly required type="text" sars-limitfield="1000" [(ngModel)]="currentOffenceDetail.Circumstance"
+                                  name="Circumstance" #Circumstance="ngModel"></textarea>
+                              </div>
+                            </div>
+
+                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                              <label class="control-label col-sm-4">Offence:</label>
+                              <div class="col-sm-7">
+                                <textarea class="form-control" [disabled]=allFieldsReadOnly required type="text" sars-limitfield="1000" [(ngModel)]="currentOffenceDetail.Offence"
+                                  name="Offence" #Offence="ngModel"></textarea>
+                              </div>
+                            </div>
+
+                            <p-footer>
+                              <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                <button [disabled]=allFieldsReadOnly pButton type="button" icon="far fa-save" label="Save New" (click)="addOffenceDetails(currentOffenceDetail)"></button>
+                                <button [disabled]=allFieldsReadOnly pButton type="button" icon="fas fa-edit" label="Update" (click)="onOffenceEdit(currentOffenceDetail)"></button>
+                              </div>
+                            </p-footer>
+                          </p-dialog>
+
+                          <!-- <form #auditTem="ngForm">
+                        </form> -->
+
+                          <!-- begin finding details -->
+
+                          <div class="row col-md-12  col-lg-12 col-md-12  col-lg-12 col-sm-12">
+
+                            <p-toolbar>
+                              <div class="ui-toolbar-group-left">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input #gb type="text" pInputText size="50" placeholder="Search">
+                              </div>
+
+                              <div class="ui-toolbar-group-right">
+
+                                <button [disabled]=allFieldsReadOnly pButton type="button" icon="fas fa-plus" label="Add Offence Details" (click)="showOffenceDialog()"></button>
+
+                              </div>
+                            </p-toolbar>
+                            <p-dataTable [immutable]=false [value]="AuditFindings.ContraventionOffenceDetails" [rows]="10" [paginator]="true" [globalFilter]="gb"
+                              #dtOffence>
+
+                              <p-column field="SectionRuleContravened" header="Section/Rule Contravened"></p-column>
+                              <p-column field="Circumstance" header="Circumstance"></p-column>
+                              <p-column field="Offence" header="Offence"></p-column>
+                              <p-column styleClass="col-button">
+                                <ng-template let-item="rowData" pTemplate="body">
+                                  <button type="button" pButton label="Edit" (click)='onOffenceDetailsGridEdit(item)'></button>
+                                </ng-template>
+                              </p-column>
+                              <p-column field="IsRemoved" header="" [hidden]="false"></p-column>
+                              <p-column styleClass="col-button">
+                                <ng-template let-item="rowData" pTemplate="body">
+                                  <button type="button" pButton label="Delete" (click)='onDeleteOffenceDetails(item, dtOffence)'></button>
+                                </ng-template>
+                              </p-column>
+
+                            </p-dataTable>
+                          </div>
+
+
+                          <!-- VAT Details -->
+                          <br/>
+                          <p-dialog header="Duty/VAT Due" [(visible)]="showDutyAndVatDueDisplayDialog" [responsive]="false" [width]="650" showEffect="fade"
+                            [modal]="true">
+
+                            <h3 style="text-align:center; font-weight:bold"></h3>
+
+                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                              <label class="control-label col-sm-4">Declaration Number:</label>
+                              <div class="col-sm-7">
+                                <input class="form-control" sars-limitfield="30" sars-numericfield required type="text" [(ngModel)]="currentvatDetail.DeclarationNumber"
+                                  name="DeclarationNumber" #declarationNumber="ngModel" />
+                              </div>
+                            </div>
+
+                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                              <label class="control-label col-sm-4">Line Number:</label>
+                              <div class="col-sm-7">
+                                <input class="form-control" sars-limitfield="100" sars-numericfield required type="text" [(ngModel)]="currentvatDetail.LineNumber"
+                                  name="LineNumber" #LineNumber="ngModel" />
+                              </div>
+                            </div>
+
+                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                              <label class="control-label col-sm-4">Type of Duty or Tax Underpaid:</label>
+                              <div class="col-sm-7">
+                                <!-- <input class="form-control" required type="text" sars-limitfield="100" [(ngModel)]="currentvatDetail.TypeOfDutyTaxUnderPaid"
+                                name="TypeOfDutyTaxUnderPaid" #TypeOfDutyTaxUnderPaid="ngModel" /> -->
+                                <textarea class="form-control" required type="text" sars-limitfield="100" [(ngModel)]="currentvatDetail.TypeOfDutyTaxUnderPaid"
+                                  name="TypeOfDutyTaxUnderPaid" #TypeOfDutyTaxUnderPaid="ngModel"></textarea>
+                              </div>
+                            </div>
+
+                            <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                              <label class="control-label col-sm-4">Amount:</label>
+                              <div class="col-sm-7">
+                                <input class="form-control" required type="number" [(ngModel)]="currentvatDetail.Amount" name="Amount" #Amount="ngModel"
+                                />
+                              </div>
+                            </div>
+                            <br>
+                            <p-footer>
+                              <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                                <!-- <button type="button" pButton class="btn btn-primary" (click)="delete()">Delete User</button> -->
+                                <!-- <button type="button" pButton class="btn btn-primary" (click)="addUser(userAdmin)">Add/Update User</button> -->
+                                <button [disabled]=allFieldsReadOnly pButton type="button" icon="far fa-save" label="Save" (click)="addVatDetails(currentvatDetail)"></button>
+                                <button [disabled]=allFieldsReadOnly pButton type="button" icon="fas fa-edit" label="Update" (click)="onVatDetailsEdit(currentvatDetail)"></button>
+                              </div>
+                            </p-footer>
+                          </p-dialog>
+
+                          <br/>
+                          <br/>
+                          <div class="row col-md-12  col-lg-12 col-md-12  col-lg-12 col-sm-12">
+                            <p-toolbar>
+                              <div class="ui-toolbar-group-left">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input #gb type="text" pInputText size="50" placeholder="Search">
+                              </div>
+
+                              <div class="ui-toolbar-group-right">
+
+                                <button [disabled]=allFieldsReadOnly pButton type="button" icon="fas fa-plus" label="Add Duty/VAT Due" (click)="showDutyAndVatDueDialog()"></button>
+
+                              </div>
+                            </p-toolbar>
+                            <p-dataTable [immutable]=false [value]="AuditFindings.DutyVatDetails" [rows]="10" [paginator]="true" [globalFilter]="gb"
+                              #dtVat>
+
+                              <p-column field="DeclarationNumber" header="Declaration"></p-column>
+                              <p-column field="LineNumber" header="Line Number"></p-column>
+                              <p-column field="TypeOfDutyTaxUnderPaid" header="Type of Duty"></p-column>
+                              <p-column field="Amount" header="Amount"></p-column>
+                              <p-column styleClass="col-button">
+                                <ng-template let-item="rowData" pTemplate="body">
+                                  <button [disabled]=allFieldsReadOnly type="button" pButton class='btn btn-primary btn-xs' label="Edit" (click)='onVatDetailsGridEdit(item)'></button>
+                                </ng-template>
+                              </p-column>
+                              <p-column field="IsRemoved" header="" [hidden]="true"></p-column>
+                              <p-column styleClass="col-button">
+                                <ng-template let-item="rowData" pTemplate="body">
+                                  <button [disabled]=allFieldsReadOnly type="button" pButton class='btn  btn-danger btn-xs' label="Delete" (click)='onDeleteVatDetails(item, dtVat)'></button>
+                                </ng-template>
+                              </p-column>
+
+                            </p-dataTable>
+                          </div>
+                        </fieldset>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                      <h4 class="panel-title">
+                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
+                          style="color:white">
+                          Audit Plan Template
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body">
+                        <form #auditTem="ngForm">
+
+                        </form>
+                        <fieldset [disabled]=allFieldsReadOnly>
+                          <h3 style="text-align:center; font-weight:bold">Section 1</h3>
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Case Status:</label>
+                            <div class="col-sm-7">
+                              <input class="form-control" type="text" [(ngModel)]="audiDetails.Status" name="Other" #other="ngModel" disabled />
+                            </div>
+                          </div>
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Risk Assessment Report:</label>
+                            <div class="col-sm-7">
+                              <select class="form-control" required name="RiskAssementReport" [(ngModel)]="audiDetails.RiskAssementReport">
+                                <option [ngValue]="null"></option>
+                                <option *ngFor="let t of toggleCollection" [ngValue]="t.Value">{{t.DisplayText}}</option>
+                              </select>
+                            </div>
+
+                          </div>
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">VD/DL:</label>
+                            <div class="col-sm-7">
+                              <select class="form-control" required name="VDDLQuestionId" [(ngModel)]="audiDetails.VDDLQuestionId">
+                                <option *ngFor="let t of vDLookup" [ngValue]="t.VDDLQuestionId" [attr.selected]="audiDetails.VDDLQuestionId == t.VDDLQuestionId ? true : null ">{{t.Description}}</option>
+                              </select>
+                            </div>
+                            <div class="col-sm-1">
+                              <button class="btn btn-primary btn-sm" (click)="viewVddl()">View</button>
+                            </div>
+                          </div>
+                          <div class="form-groupcol-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Audit Required:</label>
+                            <div class="col-sm-7">
+                              <div>
+                                <p-multiSelect [disabled]=allFieldsReadOnly [options]="auditRequiredLookup" [style]="{'width':'100%'}" [(ngModel)]="selectedAuditRequired"
+                                  filter="false" name="selectedAuditRequired">
+                                </p-multiSelect>
+                              </div>
+
+                            </div>
+                          </div>
+                          <br/>
+                          <h3 style="text-align:center; font-weight:bold">Section 2</h3>
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Type Of Audit:</label>
+                            <div class="col-sm-7">
+                              <select class="form-control" required name="TypeOfAuditId" [(ngModel)]="audiDetails.TypeOfAuditId">
+                                <option *ngFor="let t of typeOfAuditLook" [ngValue]="t.TypeOfAuditId" [attr.selected]="audiDetails.TypeOfAuditId == t.TypeOfAuditId ? true : null ">{{t.Description}}</option>
+                              </select>
+                            </div>
+
+                          </div>
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Start Date:</label>
+                            <div class="col-sm-7">
+                              <div>
+                                <p-calendar [(ngModel)]="audiDetails.StartDate" [disabled]=allFieldsReadOnly required dateFormat="dd/mm/yy" [showIcon]="true"
+                                  yearNavigator="true" yearRange="1900:2030" monthNavigator="true" name="StartDate" #startDate="ngModel"
+                                  [style]="{'width':'100%'}" showButtonBar="true"></p-calendar>
+                              </div>
+                            </div>
+                          </div>
+
+
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">End Date:</label>
+                            <div class="col-sm-7">
+                              <div>
+                                <p-calendar [(ngModel)]="audiDetails.EndDate" [disabled]=allFieldsReadOnly required dateFormat="dd/mm/yy" [showIcon]="true"
+                                  yearNavigator="true" yearRange="1900:2030" monthNavigator="true" name="EndDate" #endDate="ngModel"
+                                  [style]="{'width':'100%'}" showButtonBar="true"></p-calendar>
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Audit Scope:</label>
+                            <div class="col-sm-7">
+                              <input class="form-control" required type="text" [disabled]=allFieldsReadOnly [(ngModel)]="audiDetails.AuditScope" name="Other"
+                                #other="ngModel" />
+                            </div>
+
+                          </div>
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Audit Objectives:</label>
+                            <div class="col-sm-7">
+                              <textarea class="form-control" required sars-limitfield="2000" type="text" [disabled]=allFieldsReadOnly required [(ngModel)]="audiDetails.AuditObjectives"
+                                name="AuditObjectives" #auditObjectives="ngModel">
+                              </textarea>
+                            </div>
+                          </div>
+
+
+                          <h3 style="text-align:center; font-weight:bold">Section 3</h3>
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Was the Trader previously audited?:</label>
+                            <div class="col-sm-7">
+                              <select class="form-control" (change)="onToggleChange($event,'IsTraderPreviouslyAudited')" required name="IsTraderPreviouslyAudited"
+                                [(ngModel)]="audiDetails.IsTraderPreviouslyAudited">
+                                <option [ngValue]="null"></option>
+                                <option *ngFor="let t of toggleCollection" [ngValue]="t.Value">{{t.DisplayText}}</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="form-group tab-contentcol-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Is there an existing audit or investigation?:</label>
+                            <div class="col-sm-7">
+
+                              <select class="form-control" (change)="onToggleChange($event,'IsExistingAuditOrInvestigation')" required name="IsExistingAuditOrInvestigation"
+                                [(ngModel)]="audiDetails.IsExistingAuditOrInvestigation">
+                                <option [ngValue]="null"></option>
+                                <option *ngFor="let t of toggleCollection" [ngValue]="t.Value">{{t.DisplayText}}</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                            <label class="control-label col-sm-4">Is the trader a new importer/exporter?:</label>
+                            <div class="col-sm-7">
+
+                              <select class="form-control" (change)="onToggleChange($event,'IsThereAnExistingAudit')" required name="IsThereAnExistingAudit"
+                                [(ngModel)]="audiDetails.IsTraderNewExporterImporter">
+                                <option [ngValue]="null"></option>
+                                <option *ngFor="let t of toggleCollection" [ngValue]="t.Value">{{t.DisplayText}}</option>
+                              </select>
+                            </div>
+                          </div>
+                        </fieldset>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                      <h4 class="panel-title">
+                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+                          style="color:white" aria-controls="collapseTwo">
+                          Check List
+                        </a>
+                      </h4>
+                    </div>
+                    <fieldset [disabled]=allFieldsReadOnly>
+                      <div *ngIf="windowLabel == 'Audit Case Approval'" id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                          <div class="row" *ngFor="let auditlistItem of auditlistItems; let i = index">
+                            <div class="form-group col-md-12  col-lg-12 col-sm-12 ">
+                              <label class=" col-sm-8 control-label">{{auditlistItem.Description}}</label>
+                              <div class="col-sm-3">
+
+                                <select class="form-control" required name="selectedQuestion" [(ngModel)]="auditlistItem.Answer">
+                                  <option [ngValue]="null"></option>
+                                  <option *ngFor="let t of toggleCollection" [ngValue]="t.DisplayText">{{t.DisplayText}}</option>
+                                </select>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <div *ngIf="windowLabel != 'Audit Case Approval'" id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body" style="margin-left: -70px;">
+
+                          <ul *ngFor="let parentMenuItem of hierarchMenuItems">
+                            <li>
+                              <div class="form-group col-md-12  col-lg-12 col-sm-12 ">
+                                <label class=" col-sm-8 control-label">{{parentMenuItem.Description}}</label>
+                                <div *ngIf="!parentMenuItem.Expandable" class="col-sm-3">
+                                  <select class="form-control" required name="selectedQuestion" [(ngModel)]="parentMenuItem.Answer">
+                                    <option [ngValue]="null"></option>
+                                    <option *ngFor="let t of toggleCollection" [ngValue]="t.DisplayText">{{t.DisplayText}}</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </li>
+                            <!-- child items -->
+                            <div *ngIf="parentMenuItem.Expandable">
+                              <ul *ngFor="let childMenu of parentMenuItem.ChildMenuItems">
+                                <li>
+                                  <div class="form-group col-md-12  col-lg-12 col-sm-12 ">
+                                    <label class=" col-sm-8 control-label">{{childMenu.Description}}</label>
+                                    <div class="col-sm-3">
+                                      <select class="form-control" required name="selectedQuestion" [(ngModel)]="childMenu.Answer">
+                                        <option [ngValue]="null"></option>
+                                        <option *ngFor="let t of toggleCollection" [ngValue]="t.DisplayText">{{t.DisplayText}}</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
+                          </ul>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+
+                </div>
+
+                <div *ngIf="windowLabel == 'Audit Case Approval'" class="row buttoncontainer" style="margin-left: -9px; width: 96.6%;">
+                  <div class="col-md-12  col-lg-12 col-sm-12" style="text-align:center">
+
+                    <button class='btn btn-primary' (click)="ApprovePlan()">Approve</button>
+                    <button class='btn btn-primary' (click)="ReworkPlan()">Re-Work</button>
+                    <button class='btn btn-primary' (click)="RejectPlan()">Reject</button>
+                    <!-- <button class='btn btn-primary' [disabled]="CaseId != null" (click)="onAddNote()">Add Note</button> -->
+                    <button class='btn btn-primary' (click)="onCancel()">Cancel</button>
+                  </div>
+                </div>
+
+                <div *ngIf="windowLabel == 'Execute Audit Case Findings'" class="row buttoncontainer" style="margin-left: -9px; width: 96.6%;">
+                  <div class="col-md-12 col-lg-12" style="text-align:center">
+                    <button *ngIf="Pending != true" class='btn btn-primary' (click)="SaveFindings()">Save</button>
+                    <button class='btn btn-primary' (click)="SubmitExecuteReview()">Send for Approval</button>
+                    <button class='btn btn-primary' (click)="getDocumentGenerationLetter('PCA_CI_Audit_Findings_Letter')">Generate Audit Findings Letter</button>
+                    <!-- <button class='btn btn-primary' (click)="getDocumentGenerationLetter('PCA_CI_Finalisation_of_Audit_with_no_Adjustment_Letter')">Generate Finalization Letter</button> -->
+                    <button class='btn btn-primary' (click)="onCancel()">Cancel</button>
+                  </div>
+                </div>
+
+                <div *ngIf="windowLabel == 'Review Audit Case Findings'" class="row buttoncontainer" style="margin-left: -9px; width: 96.6%;">
+                  <div class="col-md-12  col-lg-12 col-sm-12" style="text-align:center">
+
+                    <button class='btn btn-primary col-md-2' (click)="AcceptFindings()">Accept</button>
+                    <button class='btn btn-primary col-md-2' (click)="ReworkFindings()">Rework</button>
+                    <button class='btn btn-primary col-md-2' (click)="RejectFindings()">Reject</button>
+                    <!-- <button class='btn btn-primary col-md-2' [disabled]="CaseId != null" (click)="onAddNote()">Add Note</button> -->
+                    <button class='btn btn-primary col-md-2' (click)="onCancel()">Cancel</button>
+                  </div>
+                </div>
+
+                <div *ngIf="windowLabel == 'Audit Case Findings - Rework'" class="row buttoncontainer" style="margin-left: -9px; width: 96.6%;">
+                  <div class="col-md-12  col-lg-12 col-sm-12" style="text-align:center">
+                    <button *ngIf="Pending != true" class='btn btn-primary' (click)="SaveFindings()">Save</button>
+                    <button *ngIf="audiDetails.Status == 'CI: Execute Findings Rework'" class='btn btn-primary col-md-4' (click)="SubmitExecuteReview()">Send for Approval</button>
+                    <button *ngIf="audiDetails.Status == 'CI: Letter Intent Rework'" class='btn btn-primary col-md-4' (click)="SubmitApproveIntentLetter()">Send for Approval</button>
+                    <button *ngIf="audiDetails.Status == 'CI: Letter Demand Rework'" class='btn btn-primary col-md-4' (click)="SubmitDemandIntentLetter()">Send for Approval</button>
+
+                    <button *ngIf="audiDetails.Status == 'CI: Execute Findings Rework'" class='btn btn-primary col-md-4' (click)="getDocumentGenerationLetter('PCA_CI_Audit_Findings_Letter')">Generate Audit Findings Letter</button>
+                    <!-- <button *ngIf="audiDetails.Status == 'CI: Execute No Findings Rework'" class='btn btn-primary col-md-4' (click)="getDocumentGenerationLetter('PCA_CI_Finalisation_of_Audit_with_no_Adjustment_Letter')">Generate Finalization Letter</button> -->
+                    <button *ngIf="audiDetails.Status == 'CI: Letter Intent Rework'" class='btn btn-primary col-md-4' (click)="getDocumentGenerationLetter('PCA_CI_Notice_of_Intent_Letter')">Generate Intent Letter</button>
+                    <button *ngIf="audiDetails.Status == 'CI: Letter Demand Rework'" class='btn btn-primary col-md-4' (click)="getDocumentGenerationLetter('PCA_CI_Letter_of_Demand')">Generate Demand Letter</button>
+                    <button class='btn btn-primary' (click)="onCancel()">Cancel</button>
+                  </div>
+                </div>
+
+                <div *ngIf="windowLabel == 'Audit Case Findings - Reject'" class="row buttoncontainer" style="margin-left: -9px; width: 96.6%;">
+                  <div class="col-md-12  col-lg-12 col-sm-12" style="text-align:center">
+                    <button class='btn btn-primary col-md-3' (click)="ApproveRejection()">Approve Rejection</button>
+                    <button class='btn btn-primary col-md-3' (click)="DisapprovedRejection()">Disapprove Rejection</button>
+                    <button class='btn btn-primary' (click)="onCancel()">Cancel</button>
+                    <!-- <button class='btn btn-primary col-md-3' [disabled]="CaseId != null" (click)="onAddNote()">Add Note</button> -->
+                  </div>
+                </div>
+
+                <div *ngIf="windowLabel == 'Audit Case Generate Letter'" class="row buttoncontainer" style="margin-left: -9px; width: 96.6%;">
+                  <div class="col-md-12 col-lg-12" style="text-align:center">
+                    <button *ngIf="Pending != true" class='btn btn-primary' (click)="SaveFindings()">Save</button>
+                    <button *ngIf="audiDetails.Status == 'CI: Audit Reporting Review' && Pending != true" class='btn btn-primary col-md-4' (click)="SubmitApproveIntentLetter()">Submit For Approval</button>
+                    <button *ngIf="audiDetails.Status != 'CI: Audit Reporting Review' && Pending != true" class='btn btn-primary col-md-4' (click)="SubmitDemandIntentLetter()">Submit For Approval</button>
+                    <button *ngIf="audiDetails.Status != 'CI: Audit Reporting Review' && Pending != true" class='btn btn-primary col-md-4' (click)="getDocumentGenerationLetter('PCA_CI_Letter_of_Demand')">Generate Demand Letter</button>
+                    <button *ngIf="audiDetails.Status == 'CI: Audit Reporting Review' && Pending != true" class='btn btn-primary col-md-4' (click)="getDocumentGenerationLetter('PCA_CI_Notice_of_Intent_Letter')">Generate Intent Letter</button>
+                    <button *ngIf="Pending != true" class='btn btn-primary' (click)="onPend()">Pend Case</button>
+                    <button *ngIf="Pending == true" class='btn btn-primary' (click)="onUnPend()">Unpend Case</button>
+                    <button class='btn btn-primary' (click)="onCancel()">Cancel</button>
+                  </div>
+                </div>
+
+                <div *ngIf="windowLabel == 'Audit Case Approve Letter'" class="row buttoncontainer" style="margin-left: -9px; width: 96.6%;">
+                  <div class="col-md-12 col-lg-12" style="text-align:center">
+                    <button *ngIf="audiDetails.Status == 'CI: Approve Letter Of Intent'" class='btn btn-primary col-md-4' (click)="ApproveIntentLetter()">Accept</button>
+                    <button *ngIf="audiDetails.Status != 'CI: Approve Letter Of Intent'" class='btn btn-primary col-md-4' (click)="ApproveDemandLetter()">Accept</button>
+                    <button *ngIf="audiDetails.Status == 'CI: Execute Audit'" class='btn btn-primary col-md-2' (click)="ReworkFindings()">Rework</button>
+                    <button *ngIf="audiDetails.Status == 'CI: Approve Letter Of Intent'" class='btn btn-primary col-md-2' (click)="ReworkLetterIntentFindings()">Rework</button>
+                    <button *ngIf="audiDetails.Status == 'CI: Approve Letter Of Demand'" class='btn btn-primary col-md-2' (click)="ReworkLetterDemandFindings()">Rework</button>
+                    <button *ngIf="audiDetails.Status == 'CI: Execute Audit'" class='btn btn-primary col-md-2' (click)="RejectFindings()">Reject</button>
+                    <button *ngIf="audiDetails.Status == 'CI: Approve Letter Of Intent'" class='btn btn-primary col-md-2' (click)="RejectLetterIntentFindings()">Reject</button>
+                    <button *ngIf="audiDetails.Status == 'CI: Approve Letter Of Demand'" class='btn btn-primary col-md-2' (click)="RejectDemandLetterFindings()">Reject</button>
+                    <button class='btn btn-primary col-md-2' [disabled]="CaseId != null" (click)="AddNote()">Add Note</button>
+                    <button class='btn btn-primary' (click)="onCancel()">Cancel</button>
+                  </div>
+                </div>
+
+                <div *ngIf="windowLabel == 'Finalize Audit Case Findings'" class="row buttoncontainer" style="margin-left: -9px; width: 96.6%;">
+                  <div class="col-md-12 col-lg-12" style="text-align:center">
+                    <button *ngIf="Pending != true" class='btn btn-primary col-md-2' (click)="finalizeFindings()">Finalize</button>
+                    <button *ngIf="Pending != true" class='btn btn-primary col-md-2' (click)="CloseFindings()">Close</button>
+
+                    <button *ngIf="Pending != true" class='btn btn-primary' (click)="onPend()">Pend Case</button>
+                    <button *ngIf="Pending == true" class='btn btn-primary' (click)="onUnPend()">Unpend Case</button>
+                    <button class='btn btn-primary' (click)="onCancel()">Cancel</button>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="col-md-4 col-lg-4 col-sm-4">
+          <div class="row">
+            <div class="panelprimary">
+              <div class="panelheader">
+                Generated Letters And Selected Documents
+              </div>
+              <div class="panelcontainerhalf" style="overflow: hidden !important;">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <div>
+                      <input type="file" id="fileloader" multiple="multiple" (change)="uploadFile($event)" />
+                      <br/>
+                    </div>
+                    <p>Number Of Letters: {{DocumentsLength()}}</p>
+                  </div>
+                  <div class="col-lg-12 col-md-12">
+                    <p-dataTable [immutable]=false #dtMain [value]="documentItems" scrollHeight="160px" scrollable="true" [rows]="5" [paginator]="true">
+                      <p-column field="FileName" header="Name"></p-column>
+                      <p-column field="FileSize" header="Size">
+                        <ng-template let-col let-documentItem="rowData " pTemplate="type">
+                          <div>{{documentItem.FileSize/1024/1024 | number:'.2'}} MB</div>
+                        </ng-template>
+                      </p-column>
+                      <p-column field="DateCreated" header="Date Created">
+                        <ng-template let-col let-documentItem="rowData " pTemplate="type">
+                          <div>{{documentItem.DateCreated | date : "dd MMMM yyyy" }}</div>
+                        </ng-template>
+                      </p-column>
+                      <p-column styleClass="col-button">
+                        <ng-template let-documentItem="rowData" pTemplate="body">
+                          <button type="button" label="Remove" [disabled]=allFieldsReadOnly pButton (click)='removeDocument(documentItem,dtMain)'></button>
+                        </ng-template>
+                      </p-column>
+                      <p-column styleClass="col-button">
+                        <ng-template let-documentItem="rowData" pTemplate="body">
+                          <button type="button" pButton label="View" (click)='viewDocument(documentItem)'></button>
+                        </ng-template>
+                      </p-column>
+                      <p-column field="IsRemoved" header="" [hidden]="true"></p-column>
+                    </p-dataTable>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="panelprimary">
+              <div class="panelheader">
+                View Comments
+              </div>
+              <div class="panelcontainerhalf" style="overflow: hidden !important;">
+                <app-comments-view id="commentsview" [caseID]="commentsCaseId"></app-comments-view>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<app-loadingbar [isPostActionCompleted]="isPostActionCompleted" [isLoaded]="isLoaded"> </app-loadingbar>

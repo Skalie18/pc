@@ -1,0 +1,35 @@
+<div class="row ">
+    <div>
+        <div>
+            <input type="file" id="fileloader" multiple="multiple" (change)="uploadFile($event)" />
+            <br/>
+        </div>
+        <h3>Documents</h3>
+        <p>Number Of Documents: {{DocumentsLength()}}</p>
+
+        <p-dataTable [immutable]=false #dt [value]="documentItems"  scrollHeight="140px" scrollable="true" [rows]="5" [paginator]="true">
+            <p-column field="FileName" header="Name"></p-column>
+            <p-column field="FileSize" header="Size">
+                <ng-template let-col let-documentItem="rowData " pTemplate="type">
+                    <div>{{documentItem.FileSize/1024/1024 | number:'.2'}} MB</div>
+                  </ng-template>
+            </p-column>
+            <p-column field="DateCreated" header="Date Uploaded">
+                <ng-template let-col let-documentItem="rowData " pTemplate="type">
+                    <div>{{documentItem.DateCreated || currentDate}}</div>
+                </ng-template>
+            </p-column>
+            <p-column field="IsRemoved" header="" [hidden]="true"></p-column>
+            <p-column styleClass="col-button">
+                <ng-template let-documentItem="rowData" pTemplate="body" >
+                    <button type="button" pButton class='btn btn-danger btn-xs' (click)="removeDocument(dt , documentItem)">Remove</button>
+                </ng-template>
+            </p-column>
+            <p-column styleClass="col-button">
+                <ng-template let-documentItem="rowData" pTemplate="body" >
+                    <button type="button" pButton class='btn btn-primary btn-xs' (click)="viewDocument(documentItem)">View</button>
+                </ng-template>
+            </p-column>
+        </p-dataTable>
+    </div>
+</div>

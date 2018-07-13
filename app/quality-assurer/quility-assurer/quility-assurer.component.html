@@ -1,0 +1,43 @@
+<div class="panel">
+  <div class='panel-primary'>
+    <h2 class="panel-heading">{{pageTitle}}</h2>
+  </div>
+  <app-loadingbar [isLoaded]="isLoaded"></app-loadingbar>
+ <p-dataTable [immutable]=false [value]="gridItems" [rows]="10" [paginator]="true">
+    <p-column field="SuspiciousActivityReportDetails.CaseDetails.ReferenceNumber" header="Case Ref Number"></p-column>
+    <p-column field="SuspiciousActivityReportDetails.CaseDetails.Status" header="Case Status"></p-column>
+    <p-column field="SuspiciousActivityReportDetails.SarsRefDetails" header="Customs Excise Code:">
+        <ng-template let-col let-sarDetails="rowData " pTemplate="type">
+            <div *ngIf="sarDetails.SuspiciousActivityReportDetails.SarsRefDetails.length > 0">
+                {{sarDetails.SuspiciousActivityReportDetails.SarsRefDetails[0].CustomsExciseCode}}
+            </div>
+        </ng-template>
+    </p-column>
+    <p-column field="SuspiciousActivityReportDetails.SarsRefDetails" header="Income Tax:">
+        <ng-template let-col let-sarDetails="rowData " pTemplate="type">
+            <div *ngIf="sarDetails.SuspiciousActivityReportDetails.SarsRefDetails.length > 0">
+                {{sarDetails.SuspiciousActivityReportDetails.SarsRefDetails[0].IncomeTax}}
+            </div>
+        </ng-template>
+    </p-column>
+    <p-column field="SuspiciousActivityReportDetails.SarsRefDetails" header="VAT Number:">
+        <ng-template let-col let-sarDetails="rowData " pTemplate="type">
+            <div *ngIf="sarDetails.SuspiciousActivityReportDetails.SarsRefDetails.length > 0">
+                {{sarDetails.SuspiciousActivityReportDetails.SarsRefDetails[0].VAT}}
+            </div>
+        </ng-template>
+    </p-column>
+    <p-column field="SuspiciousActivityReportDetails.CaseDetails.DateCreated" header="DateCreated:">
+        <ng-template let-col let-sarDetails="rowData " pTemplate= "type">
+            <div>{{sarDetails.SuspiciousActivityReportDetails.CaseDetails.DateCreated | date}}</div>
+        </ng-template>
+    </p-column>
+    <p-column styleClass="col-button">
+
+      <ng-template let-gridItem="rowData" pTemplate="body">
+        <button type="button" pButton class='btn btn-primary' (click)='onSarEdit(gridItem)'>Review</button>
+      </ng-template>
+    </p-column>
+
+  </p-dataTable>
+</div>

@@ -1,0 +1,27 @@
+<div class="panel">
+    <div class='panel-primary'>
+        <h2 class="panel-heading">{{WindowLabel}}</h2>
+    </div>
+    <app-loadingbar [isLoaded]="isLoaded"></app-loadingbar>
+    <div class="ui-widget-header panel-primary" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Search">
+    </div>
+   <p-dataTable [immutable]=false [value]="riskkAssessmentCombinedData" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+        <p-column field="RiskAssessmentReportResult.CaseRefNo" header="Case Ref Number"></p-column>
+        <p-column field="RiskAssessmentReportResult.RiskStatement.Status" header="Status">
+            <ng-template let-col let-riskkAssessmentCombinedData="rowData " pTemplate="type">
+                <div>{{riskkAssessmentCombinedData.RiskAssessmentReportResult.RiskStatement[0].Status}}</div>
+            </ng-template>
+        </p-column>
+        <p-column field="RiskAssessmentReportResult.RegistrationParticulars.CustomsCode" header="Customs Code"></p-column>
+        <p-column field="RiskAssessmentReportResult.RegistrationParticulars.RegisteredName" header="Registered Name"></p-column>
+        <p-column field="RiskAssessmentReportResult.RegistrationParticulars.TradingName" header="Trading Name"></p-column>
+        <p-column field="RiskAssessmentReportResult.RegistrationParticulars.IBRCustomsNr" header="IBR No"></p-column>
+        <p-column styleClass="col-button">
+            <ng-template let-radetail="rowData" pTemplate="body">
+                <button type="button" pButton label="Edit" (click)='onRAEdit(radetail)'></button>
+            </ng-template>
+        </p-column>
+    </p-dataTable>
+</div>

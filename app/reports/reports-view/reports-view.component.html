@@ -1,0 +1,96 @@
+<div class="panel">
+
+  <div class=" panel-primary row">
+    <h2 class="panel-heading">{{reportDescription}}</h2>
+  </div>
+
+
+  <div class='panel-primary row'>
+
+    <p-dialog header="Report Criteria" [(visible)]="displayReportDiaLog" modal="modal" [responsive]="true" [width]="800" [minWidth]="700">
+
+      <div class="row">
+
+        <div class="ui-grid ui-grid-responsive ui-fluid">
+          <div class="form-group col-sm-12">
+            <div class="col-md-4">Report Name:</div>
+
+            <div class="col-md-8">
+
+              <select class="form-control" name="reportsCollection" (change)="reportChange()" [(ngModel)]="currentReportID" required>
+                <option *ngFor="let report of reportsFilteredCollection" [value]="report.Report.ID">{{report.Report.Name}}</option>
+              </select>
+
+            </div>
+          </div>
+
+          <div class="form-group col-sm-12">
+            <div class="col-md-4">Region:</div>
+            <div class="col-md-8">
+
+              <select class="form-control" name="reportsRegions" [(ngModel)]="reportCriteriaDisplay.RegionValue" required>
+                <option *ngFor="let region of reportsRegions" [value]="region.RegionId">{{region.RegionName}}</option>
+              </select>
+
+            </div>
+          </div>
+
+          <div class="form-group col-sm-12">
+
+            <div class="col-md-4">Start Date:</div>
+            <div class="col-lg-8 col-md-8">
+              <p-calendar [(ngModel)]="reportCriteriaDisplay.StartDate" [showIcon]="true"></p-calendar>
+            </div>
+          </div>
+
+          <div class="form-group col-sm-12">
+            <div class="col-md-4">End Date:</div>
+            <div class="col-lg-8 col-md-8">
+              <p-calendar [(ngModel)]="reportCriteriaDisplay.EndDate" [showIcon]="true"></p-calendar>
+            </div>
+          </div>
+
+          <div *ngIf="reportCriteriaDisplay.StatusVisible" class="form-group col-sm-12">
+            <div class="col-md-4">Status:</div>
+            <div class="col-lg-8 col-md-8">
+
+              <select class="form-control" name="reportsRegions" [(ngModel)]="reportCriteriaDisplay.StatusValue" required>
+                <option *ngFor="let status of reportStatuses" [value]="status.StatusId">{{status.Description}}</option>
+              </select>
+
+            </div>
+          </div>
+        </div>
+
+        <p-footer>
+          <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="fa-check" (click)="generateReport()" label="View Report"></button>
+            <button type="button" pButton icon="fa-close" (click)="cancel()" label="Cancel"></button>
+          </div>
+        </p-footer>
+
+      </div>
+    </p-dialog>
+
+    <p-toolbar>
+      <div class="ui-toolbar-group-left">
+        <button pButton type="button" label="Generate Report" (click)="launchReportFilter()" icon="fa-bar-chart"></button>
+      </div>
+
+      <div class="ui-toolbar-group-right">
+        <button pButton type="button" (click)="generateReport()" label="Refresh" icon="fa-refresh"></button>
+        <button type="button" pButton icon=" fa-file-excel-o" iconPos="left" label="Save as Excel" (click)="JsonToExcel()"></button>
+        <button type="button" pButton icon="fa-file-pdf-o" iconPos="left" label="Save as PDF" (click)="jsonToPdf()"></button>
+      </div>
+    </p-toolbar>
+
+  </div>
+</div>
+
+
+<div class='panel-primary row'>
+   <p-dataTable [immutable]=false #dt [value]="reportData" [rows]="25" [paginator]="true" [pageLinks]="3" scrollable="true" selectionMode="single"
+    scrollHeight="800px" exportFilename="PCAReport">
+    <p-column *ngFor="let col of reportColumns" [field]="col.FieldName" [header]="col.FieldName"></p-column>
+  </p-dataTable>
+</div>

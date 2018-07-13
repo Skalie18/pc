@@ -1,0 +1,37 @@
+<div class="panel">
+  <div class='panel-primary' style="width: 80vw;">
+    <h2 class="panel-heading">{{windowLabel}}</h2>
+  </div>
+  <app-loadingbar [isLoaded]="isLoaded"></app-loadingbar>
+  <div class="ui-widget-header panel-primary" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Search">
+  </div>  
+ <p-dataTable [immutable]=false [value]="auditItems" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+    <p-column field="ReferenceNumber" header="Case Ref Number"></p-column>
+    <p-column field="AuditTemplate.Status" header="Status"></p-column>
+    <p-column field="CaseType" header="Case Type"></p-column>
+    <p-column field="AuditTemplate.RiskAssementReport" header="Risk Assessment Report"></p-column>
+    <p-column field="AuditTemplate.IsExistingAuditOrInvestigation" header="Existing Audit"></p-column>
+    <p-column field="AuditDocuments" header="No. Of Documents">
+        <ng-template let-col let-auditItems="rowData " pTemplate= "type">
+            <div>{{auditItems.AuditDocuments== null?0:auditItems.AuditDocuments?.length}}</div>
+        </ng-template>
+    </p-column>
+    <p-column field="AuditTemplate.StartDate" header="Start Date">
+        <ng-template let-col let-auditItems="rowData " pTemplate= "type">
+            <div>{{auditItems.AuditTemplate.StartDate | date}}</div>
+        </ng-template>
+    </p-column>
+    <p-column field="AuditTemplate.DateCreated" header="DateCreated">
+      <ng-template let-col let-auditItems="rowData " pTemplate= "type">
+        <div>{{auditItems.AuditTemplate.DateCreated | date}}</div>
+    </ng-template>
+    </p-column>
+    <p-column styleClass="col-button">
+      <ng-template let-auditItem="rowData" pTemplate="body">
+        <button type="button" pButton label="Review Rejection" (click)='executeFindings(auditItem)'></button>
+      </ng-template>
+    </p-column>
+  </p-dataTable>
+</div>

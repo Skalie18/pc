@@ -1,0 +1,48 @@
+<div class="panel">
+    <div class='panel-primary'>
+        <h2 class="panel-heading">Work In Progress</h2>
+    </div>
+    <app-loadingbar [isLoaded]="isLoaded"></app-loadingbar>
+    <div class="ui-widget-header panel-primary" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input [disabled]="sarDetails.length == 0" #gb type="text" pInputText size="50" placeholder="filter">
+    </div>
+   <p-dataTable [immutable]=false [value]="sarDetails" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+        <p-column field="SuspiciousActivityReportDetails.CaseDetails.ReferenceNumber" header="Case Ref Number"></p-column>
+        <p-column field="SuspiciousActivityReportDetails.CaseDetails.Status" header="Case Status"></p-column>
+        <p-column field="SuspiciousActivityReportDetails.SarsRefDetails" header="Customs Excise Code:">
+            <ng-template let-col let-sarDetails="rowData " pTemplate="type">
+                <div *ngIf="sarDetails.SuspiciousActivityReportDetails.SarsRefDetails.length > 0">
+                    {{sarDetails.SuspiciousActivityReportDetails.SarsRefDetails[0].CustomsExciseCode}}
+                </div>
+            </ng-template>
+        </p-column>
+        <p-column field="SuspiciousActivityReportDetails.SarsRefDetails" header="Income Tax:">
+            <ng-template let-col let-sarDetails="rowData " pTemplate="type">
+                <div *ngIf="sarDetails.SuspiciousActivityReportDetails.SarsRefDetails.length > 0">
+                    {{sarDetails.SuspiciousActivityReportDetails.SarsRefDetails[0].IncomeTax}}
+                </div>
+            </ng-template>
+        </p-column>
+        <p-column field="SuspiciousActivityReportDetails.SarsRefDetails" header="VAT Number:">
+            <ng-template let-col let-sarDetails="rowData " pTemplate="type">
+                <div *ngIf="sarDetails.SuspiciousActivityReportDetails.SarsRefDetails.length > 0">
+                    {{sarDetails.SuspiciousActivityReportDetails.SarsRefDetails[0].VAT}}
+                </div>
+            </ng-template>
+        </p-column>
+        <p-column field="SuspiciousActivityReportDetails.CaseDetails.DateCreated" header="DateCreated:">
+            <ng-template let-col let-sarDetails="rowData " pTemplate="type">
+                <div>{{sarDetails.SuspiciousActivityReportDetails.CaseDetails.DateCreated | date}}</div>
+            </ng-template>
+        </p-column>
+        <p-column styleClass="col-button">
+
+            <ng-template let-sarDetail="rowData" pTemplate="body">
+                <button type="button" pButton label="Edit" (click)='onSarEdit(sarDetail)'></button>
+            </ng-template>
+        </p-column>
+
+    </p-dataTable>
+
+</div>

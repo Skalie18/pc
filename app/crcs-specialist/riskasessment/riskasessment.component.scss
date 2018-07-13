@@ -1,0 +1,67 @@
+input.ng-invalid {
+    border-left: 5px solid red;
+}
+
+input.ng-valid {
+    border-left: 5px solid green;
+}
+
+textarea.ng-invalid {
+    border-left: 5px solid red;
+}
+
+textarea.ng-valid {
+    border-left: 5px solid green;
+}
+
+
+select.ng-invalid{
+    border-left:5px solid red;
+}
+select.ng-valid{
+    border-left:5px solid green;
+}
+
+.panelprimary {
+    margin-right: 10px;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+.panelheader {
+    height: 30px;
+    font-size: 16px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #337ab7;
+    color: white;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+}
+
+.panelcontainer {
+    height: 88vh;
+    overflow-x: hidden !important;
+    overflow-y: auto;
+    padding: 10px;
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    display: flow-root;
+    border: 1px solid #c6c6c6;
+    padding-bottom: 90px !important;
+}
+
+.buttoncontainer {
+    background-color: #d1d4d7;
+    border-top: 3px solid #85a5c0;
+    bottom: 0px;
+    position: absolute;
+    width: 100%;
+    margin-left: -18px;
+    padding: 12px;
+}
+
+.buttoncontainer .btn-primary {
+    margin-left: 7px;
+}

@@ -1,0 +1,75 @@
+/* .row div {
+     background-color: #99c6f5; 
+  }  */
+  .dashcontainer {
+      background: linear-gradient(to bottom right, #337ab7, #acedff);         
+      height: 80vh;
+      overflow-x: hidden !important;
+      overflow-y: hidden !important;
+      padding: 10px;
+  } 
+
+  /* .progrbarclass {
+      border: none;
+  }
+  .progrbarclass div {
+    height: 2px;
+    border: none;
+  } */
+
+  .rcorners1 div {
+    border-radius: 10px;
+    background: linear-gradient(to bottom right, #6699ff 0%, #ccffcc 100%);
+    opacity: 0.8;
+    height: 20vh; 
+    padding: 3px;     
+  }
+
+  .rcorners2 div {
+    border-radius: 10px;
+    background: linear-gradient(to bottom right, #6699ff 0%, #ccffcc 100%);
+    opacity: 0.8;
+    height: 50vh; 
+    padding: 3px;     
+  }
+  /* .chartjs-title {
+    font-size: 5rem;
+    font-weight: 600;
+    background-color: coral;
+    white-space: nowrap;
+  }
+  .chartjs-render-monitor {
+    background-color: whitesmoke;
+  } */
+  /*
+  .chartjs-title::before {
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: 40px;
+    content: 'Chart.js | ';
+    color: #f27173;
+    font-weight: 600;
+    padding-left: 48px;
+  }
+  
+  .chartjs-caption {
+    font-size: 1.2rem;
+  }
+  
+  .chartjs-links {
+    display: flex;
+    justify-content: center;
+    padding: 8px 0;
+  }
+  
+  .chartjs-links a {
+    align-items: center;
+    display: flex;
+    font-size: 0.9rem;
+    margin: 0.2rem;
+  }
+  
+  .chartjs-links .fa:before {
+    margin-right: 0.5em;
+  }
+  */

@@ -1,0 +1,215 @@
+<div class="row ">
+    <div class=" panel-primary">
+        <h2 class="panel-heading">{{viewTitle}}</h2>
+    </div>
+    <app-loadingbar [isLoaded]="isLoaded" [isPostActionCompleted]="isPostActionCompleted"></app-loadingbar>
+    <div class="col-md-12 col-lg-12">
+        <div class="panel-primary row">
+            <p-toolbar>
+                <div class="ui-toolbar-group-left">
+                    <button pButton type="button" label="Load Search Criteria" (click)="launchSearchFilter()" icon="fa-search"></button>
+                </div>
+                <div class="ui-toolbar-group-right">
+                    <button pButton type="button" (click)="onSearch()" label="Refresh" icon="fa-refresh"></button>                    
+                </div>
+            </p-toolbar>
+            <p-dialog header="Search Criteria" [(visible)]="displaySearchDiaLog" modal="true" [responsive]="true" [width]="800" [minWidth]="700">
+                <div class="ui-grid ui-grid-responsive ui-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group col-md-12">
+                                <div class="col-md-4">Search Type</div>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="searchCollection" [(ngModel)]="FormTypeId" required>
+                                        <option *ngFor="let search of searchCollection" [value]="search.FormTypeId">{{search.Description}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group col-sm-12">
+                                <div class="col-md-4">Start Date</div>
+                                <div class="col-md-8">
+                                    <p-calendar [(ngModel)]="startDate" [showIcon]="true" dateFormat="dd/mm/yy" yearNavigator="true" yearRange="1900:2030" monthNavigator="true"
+                                        showButtonBar="true"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group col-sm-12">
+                                <div class="col-md-4">End Date</div>
+                                <div class="col-md-8">
+                                    <p-calendar [(ngModel)]="endDate" [showIcon]="true" dateFormat="dd/mm/yy" yearNavigator="true" yearRange="1900:2030" monthNavigator="true"
+                                        showButtonBar="true"></p-calendar>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group col-sm-12">
+                                <div class="col-md-4">Income Tax Number</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" id="incomeTaxNo" [(ngModel)]="incomeTaxNo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group col-sm-12">
+                                <div class="col-md-4">VAT Number</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" id="VATNo" [(ngModel)]="VATNo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group col-sm-12">
+                                <div class="col-md-4">Case Ref Number</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" id="refNumber" [(ngModel)]="refNumber">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group col-sm-12">
+                                <div class="col-md-4">Customs Excise Code</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" id="exciseCode" [(ngModel)]="exciseCode">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group col-sm-12">
+                                <div class="col-md-4">Company Registered Number</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" id="companyNumber" [(ngModel)]="companyNumber">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group col-sm-12">
+                                <div class="col-md-4">Trading Name</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" id="tradingName" [(ngModel)]="tradingName">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group col-sm-12">
+                                <div class="col-md-4">Management</div>
+                                <div class="col-md-8">
+                                    <p-checkbox id="manager" binary="true" [(ngModel)]="manager" label="Show cases for users I manage"></p-checkbox>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <p-footer>
+                    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                        <div class="form-group col-sm-6" *ngIf="userRole == 'Superuser'">
+                            <div class="col-md-4">All Users</div>
+                            <div class="col-md-8">
+                                <p-checkbox id="allUsers" [(ngModel)]="allUsers" binary="true"></p-checkbox>
+                            </div>
+                        </div>
+                        <button type="button" pButton icon="fa-check" (click)="onSearch()" label="Search"></button>
+                        <button type="button" pButton icon="fa-close" (click)="cancel()" label="Cancel"></button>
+                    </div>
+                </p-footer>
+            </p-dialog>           
+        </div>
+        <div class="row">
+            <div class='panel-primary'>
+                <div class='panelheader'>Search Results</div>
+                <div class="panelcontainerresults">
+                    <div class="clearfix">
+                        <div class="ui-widget-header col-md-12" style="padding:4px 10px;border-bottom: 0 none;">
+                            <div class="col-md-8">
+                                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                                <input #gb type="text" pInputText size="50" placeholder="Search" />
+                            </div>
+                            <div class="col-md-2">
+                                <p-checkbox [(ngModel)]="isFiltered" binary="true" label="Filter Results"></p-checkbox>
+                            </div>
+                            <div class="col-md-2">
+                                <p-checkbox [(ngModel)]="isSortable" binary="true" label="Sort Results"></p-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                    <p-dataTable [immutable]=false [value]="searchResults" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt selectionMode="single"
+                        (onRowDblclick)="onRowSelect($event)">
+                        <p-column field="CaseRefNo" header="Case Ref Number" [filter]="isFiltered" filterPlaceholder="Search" filterMatchMode="contains"
+                            [sortable]="isSortable"></p-column>
+                        <!-- <p-column field="FormTypeId" header="Case Type" [filter]="isFiltered" filterMatchMode="equals" [sortable]="isSortable">
+                            <ng-template pTemplate="filter" let-col>
+                                <p-dropdown [options]="caseTypes" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)"
+                                    styleClass="ui-column-filter"></p-dropdown>
+                            </ng-template>
+                        </p-column> -->
+                        <!-- <p-column field="MasterStatus" header="Case Status" [filter]="isFiltered" filterMatchMode="equals" [sortable]="isSortable">
+                            <ng-template pTemplate="filter" let-col>
+                                <p-dropdown [options]="masterStatus" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)"
+                                    styleClass="ui-column-filter"></p-dropdown>
+                            </ng-template>
+                        </p-column> -->
+                        <p-column field="ActiveStatus" header="Current Status" [filter]="isFiltered" filterMatchMode="equals" [sortable]="isSortable">
+                            <ng-template pTemplate="filter" let-col>
+                                <p-dropdown [options]="currentStatus" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)"
+                                    styleClass="ui-column-filter"></p-dropdown>
+                            </ng-template>
+                        </p-column>
+                        <!-- <p-column field="CustomsExciseCode" header="Customs Excise Code" [filter]="isFiltered" filterPlaceholder="Search" filterMatchMode="contains"
+                            [sortable]="isSortable"></p-column> -->
+                        <p-column field="CompanyRegNo" header="Company registered number" [filter]="isFiltered" filterPlaceholder="Search" filterMatchMode="contains"
+                            [sortable]="isSortable"></p-column>
+                        <p-column field="TradingName" header="Trading Name" [filter]="isFiltered" filterPlaceholder="Search" filterMatchMode="contains"
+                            [sortable]="isSortable"></p-column>
+                        <p-column field="IncomeTaxNo" header="Income Tax" [filter]="isFiltered" filterPlaceholder="Search" filterMatchMode="contains"
+                            [sortable]="isSortable"></p-column>
+                        <p-column field="VATNo" header="VAT Number" [filter]="isFiltered" filterPlaceholder="Search" filterMatchMode="contains" [sortable]="isSortable"></p-column>
+                        <p-column field="DateCreated" header="Date Created" [sortable]="isSortable">
+                            <ng-template let-col let-result="rowData " pTemplate="type">
+                                <div>{{result.DateCreated | date}}</div>
+                            </ng-template>
+                        </p-column>
+                        <p-column field="Sid" header="SID" [filter]="isFiltered" filterPlaceholder="Search" filterMatchMode="equals" [sortable]="isSortable">
+                            <ng-template pTemplate="filter" let-col>
+                                <p-dropdown [options]="sIds" [style]="{'width':'100%'}" (onChange)="dt.filter($event.value,col.field,col.filterMatchMode)"
+                                    styleClass="ui-column-filter"></p-dropdown>
+                            </ng-template>
+                        </p-column>
+                        <p-column field="FirstName" header="First Name" [filter]="isFiltered" filterPlaceholder="Search" filterMatchMode="contains"
+                            [sortable]="isSortable"></p-column>
+                        <p-column field="LastName" header="Surname" [filter]="isFiltered" filterPlaceholder="Search" filterMatchMode="contains" [sortable]="isSortable"></p-column>
+                        <p-column field="" header="Action">
+                            <ng-template let-col let-result="rowData " pTemplate="type">
+                                <button class='btn btn-primary' (click)='onLoadDetails(result)'>Edit</button>
+                            </ng-template>
+                        </p-column>
+                    </p-dataTable>                    
+                </div>
+                <p-dialog header="Case Status History" [(visible)]="displayHistoryDiaLog" [modal]="true" [responsive]="true" 
+                            [minWidth]="700" [closeOnEscape]="true" focusOnShow="true" id="histDialog" 
+                            (onShow)="onDialogShow($event)">                                                      
+                    <p-dataTable id="historyStatus" [immutable]=false [value]="historyResults" [rows]="15" [paginator]="true" appendTo="body">
+                        <p-column field="CaseRefNo" header="Case Ref Number"></p-column>
+                        <p-column field="ActiveStatus" header="Current Status"></p-column>
+                        <p-column field="DateCreated" header="Last Changed">
+                            <ng-template let-col let-result="rowData " pTemplate="type">
+                                <div>{{result.DateCreated | date:"dd/MM/yyyy HH:mm"}}</div>
+                            </ng-template>
+                        </p-column>
+                        <p-column field="Sid" header="SID"></p-column>
+                        <p-column field="FirstName" header="First Name"></p-column>
+                        <p-column field="LastName" header="Surname"></p-column>
+                    </p-dataTable>
+                    <p-footer>
+                        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                            <button type="button" pButton icon="fa-close" (click)="close()" label="Close"></button>
+                        </div>
+                    </p-footer>
+                </p-dialog>
+            </div>
+        </div>
+    </div>
+
+</div>

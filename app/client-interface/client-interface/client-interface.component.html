@@ -1,0 +1,231 @@
+<div class="panel">
+    <div class=" panel-primary">
+        <h2 class="panel-heading">{{viewTitle}}</h2>
+    </div>
+    <app-loadingbar [isPostActionCompleted]="isPostActionCompleted" [isLoaded]="isLoaded"> </app-loadingbar>
+    <div class=" row col-sm-8 col-md-8  col-lg-8" style="margin-top: -8px !important">
+        <p-panel>
+            <p-header>
+                <div class="ui-helper-clearfix">
+                    <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">VD/DL Details</span>
+                </div>
+            </p-header>
+            <div class="panelcontainer" style="height: 72vh !important;">
+                <form novalidate #vddlform="ngForm">
+                    <div class="form-group col-md-12  col-lg-12 col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">Case Ref No:</label>
+                        <div class=" col-lg-10 col-md-10  col-lg-10 col-sm-10">
+                            <input type="text" disabled class="form-control" [(ngModel)]="vddlData.VddlDetails.CaseRefNo" name="CaseRefNo" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12  col-lg-12 col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">Case Status:</label>
+                        <div class="col-md-10 col-lg-10 col-lg-10 col-sm-10">
+                            <!-- <input class="form-control" disabled type="text" /> -->
+                            <label class="form-control col-md-2  col-lg-2 col-sm-2"> {{vddlData.VddlDetails.Status == null ? 'New':vddlData.VddlDetails.Status}} </label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">Customs/Excise:</label>
+                        <div class="col-sm-3">
+                            <select class="form-control" required placeholder="Please make a select" [(ngModel)]="vddlData.VddlDetails.CustomsExciseId"
+                                name="CustomsExciseId" #customsExciseId="ngModel">
+                                <option *ngFor="let customsExciseList of customsExciseLists" [value]="customsExciseList.CustomsExciseId">{{customsExciseList.Description}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-labelcol-md-2  col-lg-2 col-sm-2">Customs/Excise Code</label>
+                        <div class="col-md-10  col-lg-10 col-sm-10">
+                            <input class="form-control" type="text" sars-numericfield sars-customexcise sars-limitfield="8" [(ngModel)]="vddlData.VddlDetails.CustomsExciseCode"
+                                name="CustomsExciseCode" #customsExciseCodeRef="ngModel" required />
+                            <div [hidden]="customsExciseCodeRef.valid || customsExciseCodeRef.pristine" class="alert alert-danger">
+                                <div [hidden]="!customsExciseCodeRef.hasError('required')">Please Enter the Customs/Excise Code</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">Company Registered Number:</label>
+                        <div class="col-md-10  col-lg-10 col-sm-10">
+                            <input class="form-control" type="text" sars-companyreg sars-limitfield="14" required [(ngModel)]="vddlData.VddlDetails.CompanyRegisteredNumber"
+                                name="CompanyRegisteredNumber" #companyRegisteredNumberRef="ngModel" />
+                            <!-- <div [hidden]="companyRegisteredNumberRef.valid || companyRegisteredNumberRef.pristine" class="alert alert-danger">
+                                        <label class="control-label col-sm-2">Company Registered Number:</label>
+                                                Please Enter Company Registered Number
+                                            </div> -->
+                            <div [hidden]="companyRegisteredNumberRef.valid || companyRegisteredNumberRef.pristine" class="alert alert-danger">
+                                <div [hidden]="!companyRegisteredNumberRef.hasError('required')">Please Enter Company Registered Number</div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">Trading Name:</label>
+                        <div class="col-md-10  col-lg-10 col-sm-10">
+                            <input class="form-control" type="text" sars-sepcialcharacter sars-limitfield="100" required [(ngModel)]="vddlData.VddlDetails.TradingName"
+                                name="TradingName" #tradingName="ngModel" />
+                            <!-- <div [hidden]="tradingName.valid || tradingName.pristine" class="alert alert-danger">
+                                                Please Enter tradingName
+                                            </div> -->
+                            <div [hidden]="tradingName.valid || tradingName.pristine" class="alert alert-danger">
+                                <div [hidden]="!tradingName.hasError('required')">Please Enter Trading Name</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">Income Tax:</label>
+                        <div class="col-md-10  col-lg-10 col-sm-10">
+                            <input class="form-control" type="text" sars-numericfield sars-limitfield="10" required [(ngModel)]="vddlData.VddlDetails.IncomeTax"
+                                name="incomeTax" id="incomeTax" #incomeTax="ngModel" sars-taxincome/>
+                            <div [hidden]="incomeTax.valid || incomeTax.pristine" class="alert alert-danger">
+
+                                <div [hidden]="!incomeTax.hasError('required')">Please Enter Income Tax</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">VAT Number:</label>
+                        <div class="col-md-10  col-lg-10 col-sm-10">
+                            <input class="form-control" type="text" sars-numericfield sars-limitfield="10" required [(ngModel)]="vddlData.VddlDetails.VATNumber"
+                                name="vatNumber" id="vatNumber" #vatNumber="ngModel" sars-vatnumber />
+                            <div [hidden]="vatNumber.valid || vatNumber.pristine" class="alert alert-danger">
+                                <div [hidden]="!vatNumber.hasError('required')">Please Enter Vat Number</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">Entries Involved:</label>
+                        <div class="col-md-10  col-lg-10 col-sm-10">
+                            <textarea class="form-control" sars-limitfield="4000" type="text" required [(ngModel)]="vddlData.VddlDetails.EntriesInvolved"
+                                name="EntriesInvolved" #entriesInvolved="ngModel">
+                                            </textarea>
+                            <div [hidden]="entriesInvolved.valid || entriesInvolved.pristine" class="alert alert-danger">
+                                <div [hidden]="!entriesInvolved.hasError('required')">Please Enter Entries Involved</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">Total amount due to SARS:</label>
+                        <div class="col-md-10  col-lg-10 col-sm-10">
+                            <input class="form-control" type="text" sars-numericfield sars-numericfield required sars-limitfield="20" [(ngModel)]="vddlData.VddlDetails.TotalAmountDue"
+                                name="TotalAmountDue" #totalAmountDue="ngModel" />
+                            <div [hidden]="totalAmountDue.valid || totalAmountDue.pristine" class="alert alert-danger">
+                                <div [hidden]="!totalAmountDue.hasError('required')">Please Enter total Amount Due</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">Total Amount Involved:</label>
+                        <div class="col-md-10  col-lg-10 col-sm-10">
+                            <input class="form-control" type="text" sars-numericfield sars-limitfield="15" required [(ngModel)]="vddlData.VddlDetails.TotalAmountInvolved"
+                                name="TotalAmountInvolved" #totalAmountInvolved="ngModel" />
+                            <div [hidden]="totalAmountInvolved.valid || totalAmountInvolved.pristine" class="alert alert-danger">
+                                <div [hidden]="!totalAmountInvolved.hasError('required')">Please Enter Total Amount Involved</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">Duty Amount:</label>
+                        <div class="col-md-10  col-lg-10 col-sm-10">
+                            <input class="form-control" type="text" sars-numericfield sars-limitfield="15" required [(ngModel)]="vddlData.VddlDetails.DutyAmount"
+                                name="DutyAmount" #dutyAmount="ngModel" />
+                            <div [hidden]="dutyAmount.valid || dutyAmount.pristine" class="alert alert-danger">
+                                <div [hidden]="!dutyAmount.hasError('required')">Please Enter Duty Amount</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">VAT Amount:</label>
+                        <div class="col-md-10  col-lg-10 col-sm-10">
+                            <input class="form-control" type="text" sars-numericfield sars-limitfield="15" required [(ngModel)]="vddlData.VddlDetails.VATAmount"
+                                name="VATAmount" #vATAmount="ngModel" />
+                            <div [hidden]="vATAmount.valid || vATAmount.pristine" class="alert alert-danger">
+                                <div [hidden]="!vATAmount.hasError('required')">Please Enter VAT Amount</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">Interest:</label>
+                        <div class="col-md-10  col-lg-10 col-sm-10">
+                            <input class="form-control" type="text" sars-numericfield sars-limitfield="15" required [(ngModel)]="vddlData.VddlDetails.Interest"
+                                name="Interest" #interest="ngModel" />
+                            <div [hidden]="interest.valid || interest.pristine" class="alert alert-danger">
+                                <div [hidden]="!interest.hasError('required')">Please Enter Interest</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">Instruction:</label>
+                        <div class="col-md-10  col-lg-10 col-sm-10">
+                            <textarea class="form-control" sars-sepcialcharacter sars-limitfield="4000" type="text" required [(ngModel)]="vddlData.VddlDetails.Instructions"
+                                name="Instructions" #instructions="ngModel"></textarea>
+
+                            <div [hidden]="instructions.valid || instructions.pristine" class="alert alert-danger">
+                                <div [hidden]="!instructions.hasError('required')">Please Enter Instructions</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="fromView == 'approvedauditplansview'" class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">Audit Findings</label>
+                        <div class="col-md-10  col-lg-10 col-sm-10">
+                            <textarea class="form-control" sars-sepcialcharacter sars-limitfield="4000" type="text" required [(ngModel)]="vddlData.VddlDetails.AuditFindings"
+                                name="AuditFindings" #AuditFindings="ngModel">
+                                            </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12  col-lg-12 col-sm-12">
+                        <label class="control-label col-md-2  col-lg-2 col-sm-2">Origin of Case Client/Company:</label>
+                        <div class="col-md-3  col-lg-3 col-sm-3">
+                            <select class="form-control" required placeholder="Please make a select" [(ngModel)]="vddlData.VddlDetails.OriginofCaseId"
+                                name="OriginofCaseId" #originofCaseId="ngModel">
+                                <option *ngFor="let origincase of originCaseList" [value]="origincase.OriginofCaseId">{{origincase.Description}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br/>
+                </form>
+            </div>
+
+
+
+            <p-footer>
+                <button class='btn btn-primary' *ngIf="SaveButton || Selected =='59697a4d-4996-494b-8b09-a075d54a618c' " (click)="onSave(vddlData)">Save</button>
+                <button class='btn btn-primary' *ngIf="SubmitButton" [disabled]="!vddlform.valid" (click)=onsubmit(vddlData)>Submit</button>
+                <button class='btn btn-primary' *ngIf="CancelButton" (click)="onCancel()">Cancel</button>
+                <!-- <button class='btn btn-primary' *ngIf="PendButton" [disabled]="vddlData.VddlDetails.CaseId == null" (click)="onPend()">Pend Case</button>                                        
+                        <button class='btn btn-primary' *ngIf="UnpendButton" [disabled]="vddlData.VddlDetails.CaseId == null" (click)="onUnPend()">Unpend Case</button> -->
+                <button class='btn btn-primary' *ngIf="BackButton && userRole!='Client Interface Department'" (click)="goBack()">Go Back</button>
+
+            </p-footer>
+        </p-panel>
+    </div>
+
+    <div class="col-md-4  col-lg-4 col-sm-4" style="margin-top: -8px !important">
+        <p-panel>
+            <p-header>
+                <div class="panel-primary!important">
+                    <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Select Documents</span>
+                </div>
+            </p-header>
+            <div class="panelcontainerhalf col-md-12 col-lg-12 col-sm-12" style="overflow: hidden !important;">
+                <app-document-upload></app-document-upload>
+            </div>
+
+            <div *ngIf="userRole!='Client Interface Department'">
+                <div class="panelheader" style="margin-top: 13px;" *ngIf="userRole!='Client Interface Department'">
+                    View Comments
+                </div>
+                <div class="panelheader col-md-12 col-lg-12 col-sm-12" style="margin-top: 13px;" *ngIf="userRole!='Client Interface Department'">
+                    <div class="panelcontainerhalf" style="overflow: hidden !important;" *ngIf="fromView!='auditPlan'">
+                        <app-comments-view id="commentsview" [caseID]="commentsCaseId"></app-comments-view>
+                    </div>
+                </div>
+            </div>
+
+        </p-panel>
+    </div>
+
+
+</div>

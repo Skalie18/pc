@@ -1,0 +1,158 @@
+<div class="nav-side-menu">
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+
+    <div class="menu-list">
+        <ul id="menu-content" class="menu-content collapse out">
+
+            <li><a [routerLink]="['/dashboard']"><i class="fa fa-dashboard fa-lg"></i> Dashboard</a></li>
+            <li *ngIf="globals.userRole=='Superuser'  || globals.userRole=='Client Interface Department' " data-toggle="collapse" data-target="#vddl" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i> VDDL <span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='Superuser' || globals.userRole=='Client Interface Department'" class="sub-menu collapse" id="vddl">
+                <li><a [routerLink]="['/createvddl']"><i class="fa fa-edit fa-lg"></i> Create VD/DL</a></li>
+                <li><a [routerLink]="['/vddlworkinprogress']"><i class="fa fa-list-alt fa-lg"></i> Work in Progress</a></li>             
+            </ul>  
+            <li *ngIf="globals.userRole=='Superuser'|| globals.userRole=='User' || globals.userRole=='CRCS Ops Specialist' || globals.userRole=='CRCS Reviewer' " data-toggle="collapse" data-target="#sar" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i> SAR <span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='Superuser' || globals.userRole=='User' || globals.userRole=='CRCS Ops Specialist' || globals.userRole=='CRCS Reviewer'" class="sub-menu collapse" id="sar">
+            <li ><a [routerLink]="['/createsar']"><i class="fa fa-user fa-lg"></i> Create SAR</a></li>
+            <li><a [routerLink]="['/sarworkinprogress']"><i class="fa fa-user fa-lg"></i> Work in Progress</a></li>
+
+            </ul>    
+        
+            <li *ngIf="globals.userRole=='Superuser' || globals.userRole=='CI Auditor' " data-toggle="collapse" data-target="#auditPlan" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i> Audit Case Management <span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='Superuser' || globals.userRole=='CI Auditor'" class="sub-menu collapse" id="auditPlan">
+                <li><a [routerLink]="['/auditallocation']"><i class="fa fa-list-alt fa-lg"></i>Allocated Inventory</a></li>
+                <li><a [routerLink]="['/auditplanworkinprogress']"><i class="fa fa-list-alt fa-lg"></i>WIP Inventory</a></li>
+
+                <li><a [routerLink]="['/auditapproved']"><i class="fa fa-list-alt fa-lg"></i>Approved Cases Inventory</a></li>
+                <li><a [routerLink]="['/findingsrework']"><i class="fa fa-list-alt fa-lg"></i> Cases For Rework Inventory</a></li>
+                <li><a [routerLink]="['/findingsPended']"><i class="fa fa-list-alt fa-lg"></i>Pended Cases Inventory</a></li>                
+                
+                <li><a [routerLink]="['/findingsletters']"><i class="fa fa-list-alt fa-lg"></i>Cases To Generate Letters Inventory </a></li>
+                <li><a [routerLink]="['/findingsApproved']"><i class="fa fa-list-alt fa-lg"></i>Cases To Finalize Inventory </a></li>
+                <li><a [routerLink]="['/findingsclosed']"><i class="fa fa-list-alt fa-lg"></i>Finalized Cases Inventory</a></li>
+                <!-- <li><a [routerLink]="['/findingsapprovedrejection']"><i class="fa fa-list-alt fa-lg"></i>Audit Cases - Approved Rejections </a></li> -->
+                <li><a [routerLink]="['/findingsfinalizedAndClosed']"><i class="fa fa-list-alt fa-lg"></i>Closed Cases Inventory</a></li>
+
+            </ul>
+            <li *ngIf="globals.userRole=='Superuser' || globals.userRole=='CI Ops Manager'" data-toggle="collapse" data-target="#auditApproval" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i> Audit Case Approval Management<span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='Superuser' || globals.userRole=='CI Ops Manager'" class="sub-menu collapse" id="auditApproval">
+                <li><a [routerLink]="['/cimanagerAuditApproval']"><i class="fa fa-list-alt fa-lg"></i>Review Audit Plans</a></li>
+                <li><a [routerLink]="['/findingsApproval']"><i class="fa fa-list-alt fa-lg"></i>Audit Findings Approval </a></li>
+                <li><a [routerLink]="['/findingsApprveletters']"><i class="fa fa-list-alt fa-lg"></i>Audit Findings Approval - Letters </a></li>
+            </ul>
+            <li *ngIf="globals.userRole=='Superuser' || globals.userRole=='CI Ops Manager'" data-toggle="collapse" data-target="#vddlcomplexity" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i> Transactional/Demand Led Audits<span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='Superuser' || globals.userRole=='CI Ops Manager'" class="sub-menu collapse" id="vddlcomplexity">
+                <li><a [routerLink]="['/cimanagerAllocate']"><i class="fa fa-list-alt fa-lg"></i> Allocate</a></li>
+                <li><a [routerLink]="['/cimanagerReallocate']"><i class="fa fa-list-alt fa-lg"></i> Re Allocate</a></li>
+                <!-- <li><a [routerLink]="['/cimanagerAuditApproval']"><i class="fa fa-list-alt fa-lg"></i>Review Audit Plans</a></li>
+                <li><a [routerLink]="['/findingsApproval']"><i class="fa fa-list-alt fa-lg"></i>Audit Findings Approval </a></li>
+                <li><a [routerLink]="['/findingsApprveletters']"><i class="fa fa-list-alt fa-lg"></i>Audit Findings Approval - Letters </a></li> -->
+            </ul>
+            <li *ngIf="globals.userRole=='Superuser' || globals.userRole=='CI Ops Manager'" data-toggle="collapse" data-target="#fullscope" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i> Full Scope Audits  <span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='Superuser' || globals.userRole=='CI Ops Manager'" class="sub-menu collapse" id="fullscope">
+                <li><a [routerLink]="['/auditscopeFullAllocate']"><i class="fa fa-list-alt fa-lg"></i> Allocate</a></li>
+                <li><a [routerLink]="['/auditscopeFullReallocate']"><i class="fa fa-list-alt fa-lg"></i> Re Allocate</a></li>
+                <!-- <li><a [routerLink]="['/auditscopeFullAuditApproval']"><i class="fa fa-list-alt fa-lg"></i>Audit Plan Approval</a></li>
+                <li><a [routerLink]="['/auditscopeFullApproval']"><i class="fa fa-list-alt fa-lg"></i>Audit Findings Approval </a></li>
+                <li><a [routerLink]="['/auditscopeFullApprveletters']"><i class="fa fa-list-alt fa-lg"></i>Audit Findings Approval - Letters </a></li> -->
+            </ul>
+            <li *ngIf="globals.userRole=='Superuser' || globals.userRole=='CI Ops Manager'" data-toggle="collapse" data-target="#limitedscope" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i> Limited Scope Audits <span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='Superuser' || globals.userRole=='CI Ops Manager'" class="sub-menu collapse" id="limitedscope">
+                <li><a [routerLink]="['/auditscopeLimitedAllocate']"><i class="fa fa-list-alt fa-lg"></i> Allocate</a></li>
+                <li><a [routerLink]="['/auditscopeLimitedReallocate']"><i class="fa fa-list-alt fa-lg"></i> Re Allocate</a></li>
+                <!-- <li><a [routerLink]="['/auditscopeLimitedAuditApproval']"><i class="fa fa-list-alt fa-lg"></i>Audit Plan Approval</a></li>
+                <li><a [routerLink]="['/auditscopeLimitedApproval']"><i class="fa fa-list-alt fa-lg"></i>Audit Findings Approval </a></li>
+                <li><a [routerLink]="['/auditscopeLimitedApprveletters']"><i class="fa fa-list-alt fa-lg"></i>Audit Findings Approval - Letters </a></li> -->
+            </ul>
+            <li *ngIf="globals.userRole=='Superuser' || globals.userRole=='CI Ops Manager'" data-toggle="collapse" data-target="#integratedaudits" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i> Integrated Audits <span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='Superuser' || globals.userRole=='CI Ops Manager'" class="sub-menu collapse" id="integratedaudits">
+                <li><a [routerLink]="['/auditscopeIntegratedAllocate']"><i class="fa fa-list-alt fa-lg"></i> Allocate</a></li>
+                <li><a [routerLink]="['/auditscopeIntegratedReallocate']"><i class="fa fa-list-alt fa-lg"></i> Re Allocate</a></li>
+                <!-- <li><a [routerLink]="['/auditscopeIntegratedAuditApproval']"><i class="fa fa-list-alt fa-lg"></i>Audit Plan Approval</a></li>
+                <li><a [routerLink]="['/auditscopeIntegratedApproval']"><i class="fa fa-list-alt fa-lg"></i>Audit Findings Approval </a></li>
+                <li><a [routerLink]="['/auditscopeIntegratedApprveletters']"><i class="fa fa-list-alt fa-lg"></i>Audit Findings Approval - Letters </a></li> -->
+            </ul>
+
+            <li *ngIf="globals.userRole=='CRCS Ops Manager' || globals.userRole=='Superuser'" data-toggle="collapse" data-target="#sarallocatereallocate" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i> SAR Allocation/ Reallocation <span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='CRCS Ops Manager' || globals.userRole=='Superuser'" class="sub-menu collapse" id="sarallocatereallocate">
+                <li><a [routerLink]="['/allocatesar']"><i class="fa fa-list-alt fa-lg"></i> Allocate</a></li>
+                <li><a [routerLink]="['/reallotesar']"><i class="fa fa-list-alt fa-lg"></i> Re Allocate</a></li>
+            </ul>
+
+            <li *ngIf="globals.userRole=='CRCS Ops Manager' || globals.userRole=='Superuser'" data-toggle="collapse" data-target="#reviewrejectedaudits" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i> Review Rejected Audits <span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='CRCS Ops Manager' || globals.userRole=='Superuser'" class="sub-menu collapse" id="reviewrejectedaudits">
+                <li><a [routerLink]="['/findingsrejected']"><i class="fa fa-list-alt fa-lg"></i>Audit Cases - Rejected </a></li>
+            </ul>
+
+            <li *ngIf="globals.userRole=='CRCS Ops Specialist' || globals.userRole=='Superuser'" data-toggle="collapse" data-target="#indeptAnalysis" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i> In-depth Analysis <span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='CRCS Ops Specialist' || globals.userRole=='Superuser'" class="sub-menu collapse" id="indeptAnalysis">
+                <li><a [routerLink]="['/saralocatedcases']"><i class="fa fa-edit fa-lg"></i> Indepth Analysis Cases</a></li>
+                <li><a [routerLink]="['/sarpendingcases']"><i class="fa fa-edit fa-lg"></i> Pending Cases</a></li>
+                <li><a [routerLink]="['/crcrccompletetemplates']"><i class="fa fa-edit fa-lg"></i> Complete RA Template</a></li>
+                <li><a [routerLink]="['/crcrcsworkinprogresscs']"><i class="fa fa-list-alt fa-lg"></i> Work in Progress</a></li>
+                <li><a [routerLink]="['/riskassessmentrework']"><i class="fa fa-edit fa-lg"></i> RA Rework</a></li>
+            </ul>
+
+             <li *ngIf="globals.userRole=='CRCS Ops Manager' || globals.userRole=='Superuser'" data-toggle="collapse" data-target="#technicalReview" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i>Technical Review Cases<span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='CRCS Ops Manager' || globals.userRole=='Superuser'" class="sub-menu collapse" id="technicalReview">
+                <li><a [routerLink]="['/getApprovedTechnicalReviewForms']"><i class="fa fa-edit fa-lg"></i> Approved Technical reviews</a></li>
+                <li><a [routerLink]="['/getRejectedTechnicalReviewForms']"><i class="fa fa-edit fa-lg"></i> Rejected Technical reviews</a></li>
+            </ul> 
+
+            <li *ngIf="globals.userRole=='CRCS Reviewer' || globals.userRole=='Superuser'" data-toggle="collapse" data-target="#sarreviewer" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i> SAR Reviewer <span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='CRCS Reviewer' || globals.userRole=='Superuser'" class="sub-menu collapse" id="sarreviewer">
+                <li><a [routerLink]="['/sarReviewer']"><i class="fa fa-list-alt fa-lg"></i> SAR's Cases to Review</a></li>
+                <!-- <li><a [routerLink]="['/rejectedsar']"><i class="fa fa-list-alt fa-lg"></i> Reject by QA</a></li>  -->
+                <li><a [routerLink]="['/sarpendingreview']"><i class="fa fa-list-alt fa-lg"></i> Cases Pending Review</a></li>
+            </ul>
+
+            <li *ngIf="globals.userRole=='Superuser' || globals.userRole=='CRCS Ops Manager'" data-toggle="collapse" data-target="#ra" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i> Case/RA Approvals<span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='Superuser' || globals.userRole=='CRCS Ops Manager'" class="sub-menu collapse" id="ra">
+             
+                <li><a [routerLink]="['/raaproval']"><i class="fa fa-list-alt fa-lg"></i> RA Approval</a></li>
+                <li><a [routerLink]="['/raaproved']"><i class="fa fa-list-alt fa-lg"></i> Approved RA</a></li>
+            </ul>
+
+            <li *ngIf="globals.userRole=='CRCS Quality Assurer' || globals.userRole=='Superuser'" data-toggle="collapse" data-target="#quilityassuer" class="collapsed active">
+                <a><i class="fa fa-desktop fa-lg"></i> Quality Assurance<span class="arrow"></span></a>
+            </li>
+            <ul *ngIf="globals.userRole=='CRCS Quality Assurer' || globals.userRole=='Superuser'" class="sub-menu collapse" id="quilityassuer">
+                <li><a [routerLink]="['/quilityassuer']"><i class="fa fa-list-alt fa-lg"></i> Discarded SAR Case Review Inventory</a></li>
+                <li><a [routerLink]="['/qareviewdiscardedanalysis']"><i class="fa fa-list-alt fa-lg"></i>Discarded SAR Case In-depth Inventory</a></li>
+                <li><a [routerLink]="['/getTechnicalReviewForms']"><i class="fa fa-edit fa-lg"></i> Technical Review Cases </a></li>
+                <li><a [routerLink]="['/getApprovedTechnicalReviewQAList']"><i class="fa fa-list-alt fa-lg"></i> Approved Technical Review Cases</a></li>
+            </ul>
+
+            <li *ngIf="globals.userRole=='Superuser'"><a [routerLink]="['/admin']"><i class="fa fa-users fa-lg"></i> Admin</a></li>
+            <li *ngIf="globals.userRole!='Client Interface Department' || globals.userRole!='User'"><a [routerLink]="['/search']"><i class="fa fa-search fa-lg"></i> Search</a></li>
+            <li *ngIf="globals.userRole=='Superuser'"><a [routerLink]="['/reports']"><i class="fa fa-bar-chart fa-lg"></i> Reports</a></li>
+        </ul>
+    </div>
+</div>

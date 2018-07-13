@@ -1,0 +1,39 @@
+
+html, body { height: 100%; width:100%}
+
+.tablebox{
+    padding: 5px;
+     background: none !important;
+    // border-right: 1px solid #337ab7;
+}
+.tableoutline:hover {
+    background: #d6e4f0 !important;
+}
+
+.tableoutline {
+    border-top: 1px solid #337ab7;
+}
+
+.boldtext {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.listBorderTop{
+    border: 3px solid #337ab7;
+    border-bottom: 0px;
+    padding-left: 16px;
+    padding-right: 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 25vh;       
+}
+.listBorderBottom{
+    border: 3px solid #337ab7;
+    border-top: 0px;
+    padding-left: 16px;
+    padding-right: 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 25vh;       
+}

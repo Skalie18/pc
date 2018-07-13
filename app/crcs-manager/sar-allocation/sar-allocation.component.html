@@ -1,0 +1,121 @@
+<div class="panel">
+  <div class='panel-primary'>
+    <h2 class="panel-heading">{{WindowLabelHeader}}</h2>
+  </div>
+  <app-loadingbar [isLoaded]="isLoaded"></app-loadingbar>
+  <div *ngIf="whichRoleActive!='SarAlocatedCases' && whichRoleActive!='Pulledcases' && whichRoleActive!='Sarpendingcases' &&  whichRoleActive!='Reallotesar' && actionType !='AllocateToQa'"
+    class='row'>
+    <label class='control-label col-md-2'>Get Next To Allocate:</label>
+    <div class='col-md-4'>
+      <button tooltip="Allocate First" [disabled]="gridItems.length > 0" class='btn btn-primary' (click)="getNextSarAllocation()">Get Next</button>
+    </div>
+    <div class="row" style="height:50px">
+      <div class='col-md-12'></div>
+    </div>
+  </div>
+  <!-- <br/> -->
+  <div *ngIf="whichRoleActive!='SarAlocatedCases' && whichRoleActive!='Pulledcases' && whichRoleActive!='Sarpendingcases'  && whichRoleActive!='Reallotesar' && actionType !='AllocateToQa'"
+    class="row">
+    <label class="control-label col-sm-2">Get Next To Allocate By Region:</label>
+    <div class="col-sm-2">
+      <select class="form-control" #region (change)="getValue(region.value)" [disabled]="gridItems.length > 0">
+        <option></option>
+        <option *ngFor="let regionItem of regionItems" [value]="regionItem.RegionId">{{regionItem.RegionName}}</option>
+      </select>
+    </div>
+    <div class='col-md-1'>
+      <button class='btn btn-primary' (click)="getNextSarAllocationByRegion(region.value)" [disabled]="region.value == ''">Get Next</button>
+    </div>
+
+    <div class="row" style="height:50px">
+      <div class='col-md-12'></div>
+    </div>
+  </div>
+
+  <div *ngIf="whichRoleActive!='SarAlocatedCases' && whichRoleActive!='Sarpendingcases' && actionType !='AllocateToQa' " class="row">
+    <label class="control-label col-sm-2">Search by Case or Custom Code:</label>
+
+    <div class="col-sm-2">
+      <input *ngIf="whichRoleActive=='Reallotesar'" class="form-control" #track type="text" (blur)="getTextValue(track.value)"
+      />
+      <input *ngIf="whichRoleActive=='Allocatesar'" class="form-control" #track type="text" [disabled]="gridItems.length > 0" (blur)="getTextValue(track.value)"
+      />
+    </div>
+
+    <div class='col-md-1'>
+      <button *ngIf="whichRoleActive=='Reallotesar'" class='btn btn-primary' (click)="onTrackButtonClick()">Track Assign</button>
+      <button *ngIf="whichRoleActive=='Allocatesar'" class='btn btn-primary' [disabled]="track?.value == ''" (click)="onTrackButtonClick()">Track Assign</button>
+    </div>
+  </div>
+  <br/>
+  <!--To Be used when needed @Brook-->
+  <!-- <div class="ui-widget-header panel-primary" style="padding:4px 10px;border-bottom: 0 none">
+    <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+    <input #gb type="text" pInputText size="50" placeholder="Search">
+  </div> -->
+ <p-dataTable [immutable]=false [value]="gridItems" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+    <p-column field="SuspiciousActivityReportDetails.CaseDetails.ReferenceNumber" header="Case Ref Number"></p-column>
+    <p-column field="SuspiciousActivityReportDetails.CaseDetails.Status" header="Case Status"></p-column>
+    <!-- <p-column field="SuspiciousActivityReportDetails.SarsRefDetails[0].CustomsExciseCode" header="Customs Excise Code:"></p-column>
+    <p-column field="SuspiciousActivityReportDetails.SarsRefDetails[0].CompanyNumber" header="Company Registered Number:"></p-column>
+    <p-column field="SuspiciousActivityReportDetails.SarsRefDetails[0].IncomeTax" header="Income Tax:"></p-column>
+    <p-column field="SuspiciousActivityReportDetails.SarsRefDetails[0].VAT" header="VAT Number:"></p-column>
+    <p-column field="SuspiciousActivityReportDetails.CaseDetails.DateCreated" header="DateCreated:"></p-column> -->
+    <p-column field="SuspiciousActivityReportDetails.SarsRefDetails" header="Customs/Excise Code:">
+      <ng-template let-col let-gridItems="rowData " pTemplate="type">
+        <div *ngIf="gridItems.SuspiciousActivityReportDetails.SarsRefDetails.length > 0">
+          {{gridItems.SuspiciousActivityReportDetails.SarsRefDetails[0].CustomsExciseCode}}
+        </div>
+      </ng-template>
+    </p-column>
+    <p-column field="SuspiciousActivityReportDetails.SarsRefDetails" header="Income Tax:">
+      <ng-template let-col let-gridItems="rowData " pTemplate="type">
+        <div *ngIf="gridItems.SuspiciousActivityReportDetails.SarsRefDetails.length > 0">
+          {{gridItems.SuspiciousActivityReportDetails.SarsRefDetails[0].IncomeTax}}
+        </div>
+      </ng-template>
+    </p-column>
+    <p-column field="SuspiciousActivityReportDetails.SarsRefDetails" header="VAT Number:">
+      <ng-template let-col let-gridItems="rowData " pTemplate="type">
+        <div *ngIf="gridItems.SuspiciousActivityReportDetails.SarsRefDetails.length > 0">
+          {{gridItems.SuspiciousActivityReportDetails.SarsRefDetails[0].VAT}}
+        </div>
+      </ng-template>
+    </p-column>
+    <p-column field="SuspiciousActivityReportDetails.CaseDetails.DateCreated" header="DateCreated:">
+      <ng-template let-col let-gridItems="rowData " pTemplate="type">
+        <div>
+          {{gridItems.SuspiciousActivityReportDetails.CaseDetails.DateCreated | date}}
+        </div>
+      </ng-template>
+    </p-column>
+
+    <p-column *ngIf="whichRoleActive !='SarAlocatedCases' && whichRoleActive !='Sarpendingcases'" styleClass="col-button">
+      <ng-template let-saretail="rowData" pTemplate="body">
+        <button type="button" pButton class='btn btn-primary' (click)='allocaTeReallocateButtonSar(saretail)'>{{buttonText}}</button>
+      </ng-template>
+    </p-column>
+    <p-column styleClass="col-button">
+      <ng-template let-saretail="rowData" pTemplate="body">
+        <button type="button" pButton class='btn btn-primary' (click)='viewSar(saretail)'>{{viewbuttonText}}</button>
+      </ng-template>
+    </p-column>
+  </p-dataTable>
+  <br/>
+  <div class="row" *ngIf="showAllocateReAllocate == true">
+    <div class="form-group col-sm-12">
+      <label class="control-label col-sm-2">Select Team Member:</label>
+      <div class="col-sm-2">
+        <select class="form-control" #teamMemebr (change)="getTeamMemberValue(teamMemebr.value)">
+          <option></option>
+          <option *ngFor="let usersItem of usersItems" [value]="usersItem.SID">{{usersItem.FirstName + usersItem.LastName}}</option>
+        </select>
+      </div>
+    </div>
+    <div class=" row col-sm-8">
+      <button *ngIf="whichRoleActive=='Allocatesar'" class='btn btn-primary' (click)="sarAllocateReallocate()" [disabled]="teamMemebr.value == ''">Allocate</button>
+      <button *ngIf="whichRoleActive!='Allocatesar'" class='btn btn-primary' (click)="sarAllocateReallocate()" [disabled]="teamMemebr.selected"
+        [disabled]="teamMemebr.value == ''">Re-Allocate</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<div class="col-md-12 col-sm-12 progrbarclass" *ngIf="!isLoaded">
+    <p-progressBar mode="indeterminate"></p-progressBar>
+    <!-- <p-progressBar [value]="progValue" #progBar [showValue]="false"></p-progressBar> -->
+</div>
+<div *ngIf="isPostActionCompleted">
+    <div class="loading-indicator">
+        <div class="loader"></div>
+        <div style="width:100px; text-align: center; font-size: 16px">Please wait...</div>
+    </div>
+    <p-blockUI [blocked]="isPostActionCompleted"></p-blockUI>
+</div>

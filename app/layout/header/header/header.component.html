@@ -1,0 +1,24 @@
+<div class="mainHeader">
+  <img src="./assets/logo1.jpg" class="img-responsive left-block" style="float: left!important" />
+  <div class="labels">
+    <h1>CE CRCS & CI System version:{{globals.VersionNumber}}</h1>
+    <h5> Welcome {{globals.name+"   "+ "   " + globals.Surname +"   "+ (globals.SID)}} -{{globals.userRole}} : Region {{globals.RegionName}} </h5>    
+  </div>
+  <div class="impersonation">
+    <div *ngIf="this.globals.isDeveloper || this.globals.IsImpersonated">
+      <div>Impersonate User</div>
+      <div *ngIf='!this.globals.IsImpersonated'>
+        <div>
+          <select class="form-control" #teamMemebr>
+            <option></option>
+            <option *ngFor="let usersItem of usersItems" [value]="usersItem.SID">{{usersItem.FirstName + usersItem.LastName}}</option>
+          </select>
+          <input type="button" (click)="loadUser(teamMemebr.value)" value="Go" />
+        </div>        
+      </div>
+      <div *ngIf='this.globals.IsImpersonated'>{{ globals.OriginalSid +' ==> '+ globals.SID }}
+        <input type="button" (click)="resetUser()" value="ResetUser">
+      </div>   
+    </div>
+  </div>  
+</div>

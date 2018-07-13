@@ -1,0 +1,6 @@
+<div *ngFor="let x of documentArray">
+<div *ngIf="x.dataLocalUrl != undefined">
+    <a [href]="x.dataLocalUrl" download="{{x.fileName}}">&#8681;</a>
+    <a [href]="x.dataLocalUrl" target="_blank">{{x.fileName}}</a>    
+</div>
+</div>
